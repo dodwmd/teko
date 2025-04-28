@@ -21,3 +21,12 @@ yarn-error.log
 
 # Docker MySQL data
 /docker/mysql
+
+# Python virtual environment
+agents/.venv
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/

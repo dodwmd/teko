@@ -1,4 +1,4 @@
-.PHONY: test lint static-analysis unit-tests help docker-build docker-run ci-php ci-python security-check
+.PHONY: test lint static-analysis unit-tests help docker-build docker-run ci-php ci-python security-check python-setup python-run
 
 # Default target
 .DEFAULT_GOAL := help
@@ -15,6 +15,8 @@ help:
 	@echo "  make ci-php              Run all PHP CI checks"
 	@echo "  make ci-python           Run all Python CI checks"
 	@echo "  make security-check      Run security scans on dependencies"
+	@echo "  make python-setup        Set up Python virtual environment"
+	@echo "  make python-run          Run Python agent (example: make python-run AGENT=core/orchestrator.py)"
 
 # Main test command that runs everything
 test:
@@ -78,3 +80,16 @@ security-check:
 	else \
 		echo "Skipping Python security check"; \
 	fi
+
+# Python virtual environment commands
+python-setup:
+	@echo "Setting up Python virtual environment..."
+	@./scripts/setup-python-env.sh
+
+python-run:
+	@if [ -z "$(AGENT)" ]; then \
+		echo "Error: AGENT parameter is required. Example: make python-run AGENT=core/orchestrator.py"; \
+		exit 1; \
+	fi
+	@echo "Running Python agent: $(AGENT)"
+	@./scripts/run-agent.sh $(AGENT)
