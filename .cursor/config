@@ -1,0 +1,5 @@
+context_files:
+  - .cursor/rules/laravel.mdc
+  - .cursor/rules/sonnet.mdc
+  - .cursor/rules/add-feature-laravel.mdc
+  - .cursor/rules/site.mdc
