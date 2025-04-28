@@ -1,0 +1,88 @@
+name: Teko CI/CD
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  php-tests:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: teko
+          MYSQL_USER: teko
+          MYSQL_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, dom, fileinfo, mysql, pdo_mysql
+        coverage: xdebug
+
+    - name: Copy .env
+      run: cp .env.example .env
+
+    - name: Install PHP Dependencies
+      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: Generate key
+      run: php artisan key:generate
+
+    - name: Configure Database
+      run: |
+        echo "DB_CONNECTION=mysql" >> .env
+        echo "DB_HOST=127.0.0.1" >> .env
+        echo "DB_PORT=3306" >> .env
+        echo "DB_DATABASE=teko" >> .env
+        echo "DB_USERNAME=teko" >> .env
+        echo "DB_PASSWORD=root" >> .env
+
+    - name: Run Migrations
+      run: php artisan migrate
+
+    - name: Run Linting
+      run: ./scripts/lint.sh
+
+    - name: Run Static Analysis
+      run: ./scripts/static-analysis.sh
+
+    - name: Run Tests
+      run: ./scripts/run-tests.sh
+
+  python-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f agents/requirements.txt ]; then pip install -r agents/requirements.txt; fi
+        
+    - name: Run Python linting and tests
+      run: |
+        if [ -d agents ]; then
+          ./scripts/lint.sh 
+          ./scripts/static-analysis.sh 
+          ./scripts/run-tests.sh 
+        else
+          echo "No agents directory found, skipping Python checks"
+        fi

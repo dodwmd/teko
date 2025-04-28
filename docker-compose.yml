@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: teko-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: teko
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: teko
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    networks:
+      - teko-network
+
+  # We'll add more services like the app and Redis later
+  # For now, we're just setting up MySQL as requested
+
+networks:
+  teko-network:
+    driver: bridge

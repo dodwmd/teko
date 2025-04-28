@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="8"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    findUnusedBaselineEntry="false"
+    findUnusedCode="false"
+    allowStringShorthand="true"
+>
+    <projectFiles>
+        <directory name="app" />
+        <directory name="database/factories" />
+        <directory name="database/seeders" />
+        <ignoreFiles>
+            <directory name="vendor" />
+            <directory name="storage" />
+            <directory name="docker" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <!-- Laravel/Orchid specifics -->
+    <issueHandlers>
+        <UndefinedClass errorLevel="suppress" />
+        <UndefinedMethod errorLevel="suppress" />
+        <PropertyNotSetInConstructor errorLevel="suppress" />
+        <MissingTemplateParam errorLevel="suppress" />
+        <MissingOverrideAttribute errorLevel="suppress" />
+        <InvalidReturnType errorLevel="suppress" />
+        <MissingReturnType errorLevel="suppress" />
+        <InvalidNullableReturnType errorLevel="suppress" />
+        <PossiblyUnusedMethod errorLevel="suppress" />
+        <UnusedClass errorLevel="suppress" />
+    </issueHandlers>
+</psalm>

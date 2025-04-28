@@ -1,71 +1,23 @@
-# Laravel
-/vendor/
-node_modules/
-npm-debug.log
-yarn-error.log
-.env
-.env.backup
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+.phpactor.json
 .phpunit.result.cache
-public/storage
-public/hot
-storage/*.key
 Homestead.json
 Homestead.yaml
-docker-compose.override.yml
+npm-debug.log
+yarn-error.log
+/auth.json
 /.fleet
 /.idea
+/.nova
 /.vscode
+/.zed
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-.nox/
-.hypothesis/
-.venv
-venv/
-ENV/
-env/
-
-# OS specific
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# IDE
-*.sublime-project
-*.sublime-workspace
-.idea/
-*.swp
-*.swo
-
-# Vector storage
-/storage/vectors/
-
-# Laravel Telescope
-/storage/debugbar/
+# Docker MySQL data
+/docker/mysql

@@ -1,0 +1,26 @@
+# Teko Project Code Owners File
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo
+* @teko-admin
+
+# PHP/Laravel specific files
+*.php @php-team
+/app/ @php-team
+/database/ @php-team
+/resources/ @php-team
+/routes/ @php-team
+/tests/ @php-team
+
+# Python/Agent specific files
+*.py @python-team
+/agents/ @python-team
+
+# CI/CD related files
+/.github/workflows/ @devops-team
+/docker/ @devops-team
+/Dockerfile @devops-team
+/docker-compose.yml @devops-team
+
+# Documentation
+*.md @docs-team

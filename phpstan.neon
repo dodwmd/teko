@@ -1,0 +1,27 @@
+parameters:
+    level: 0
+    paths:
+        - app
+        - config
+        - database
+        - routes
+    excludePaths:
+        - vendor
+        - storage
+        - docker
+    ignoreErrors:
+        # Orchid Platform
+        - '#Call to an undefined static method Illuminate\\Support\\Facades\\Route::screen\(\)#'
+        - '#Call to an undefined static method Orchid\\.*::[a-zA-Z0-9_]+\(\)#'
+        - '#Call to an undefined static method App\\Models\\.*::(first|find|create|where|select|update|delete)[a-zA-Z]*\(\)#'
+        # Laravel Facade patterns
+        - '#Undefined variable: \$this#'
+        - '#Method .* should return .* but returns .*#'
+        # Model property access
+        - '#Access to an undefined property .*::\$.*#'
+        # Eloquent method calls
+        - '#Call to an undefined (static )?method .*::(where|create|select|find|update|delete)[a-zA-Z]*\(\)#'
+        # Config issues
+        - '#Class .* not found#'
+        # Psalm integration
+        - '#Ignored error pattern .* was not matched in reported errors#'
