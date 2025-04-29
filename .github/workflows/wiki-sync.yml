@@ -1,47 +1,88 @@
-name: Wiki Sync
+name: Sync Wiki
 
 on:
   push:
     branches:
       - master
-      - main
     paths:
       - 'docs/**'
-      - '.github/workflows/wiki-sync.yml'
+  # Allow manual triggering
+  workflow_dispatch:
 
 jobs:
-  wiki-sync:
+  sync-wiki:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source repository
-        uses: actions/checkout@v4
-        with:
-          path: source
-          
-      - name: Checkout wiki repository
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository }}.wiki
-          path: wiki
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Copy docs to wiki
+      # Check out docs from main repo
+      - name: Checkout main repository
+        uses: actions/checkout@v2
+
+      # Create wiki folder and copy content
+      - name: Set up wiki content
         run: |
-          # Copy all markdown files from docs to wiki
-          find source/docs -name "*.md" -exec cp {} wiki/ \;
-          # Rename files to match wiki page format if needed
-          cd wiki
-          for file in *.md; do
-            # Remove .md extension for Home.md
-            if [ "$file" = "README.md" ]; then
-              mv "$file" "Home.md"
-            fi
-          done
-          
-      - name: Commit and push changes to wiki
+          mkdir -p wiki
+          cp -r docs/* wiki/
+          # Rename README.md to Home.md for wiki landing page
+          if [ -f wiki/README.md ]; then
+            mv wiki/README.md wiki/Home.md
+          fi
+
+      # Check if wiki repository exists
+      - name: Check if wiki repository exists
+        id: check-wiki
+        run: |
+          if git ls-remote --exit-code https://github.com/${{ github.repository }}.wiki.git > /dev/null 2>&1; then
+            echo "Wiki repository exists"
+            echo "wiki_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Wiki repository does not exist yet"
+            echo "wiki_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Initialize wiki if it doesn't exist
+      - name: Initialize wiki if needed
+        if: steps.check-wiki.outputs.wiki_exists == 'false'
         run: |
           cd wiki
-          git config user.name "GitHub Wiki Bot"
+          git init
+          git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .
-          git diff-index --quiet HEAD || git commit -m "Updated wiki from docs directory" && git push
+          git commit -m "Initial wiki setup"
+          git remote add origin https://x-access-token:${{ secrets.WIKI_TOKEN }}@github.com/${{ github.repository }}.wiki.git
+          # Try to push, but don't fail if it doesn't work
+          git push -u origin master || echo "Failed to push to wiki - may need manual initialization"
+          echo "Please manually create at least one wiki page through the GitHub UI"
+
+      # Check out wiki repository if it exists
+      - name: Checkout wiki repository
+        if: steps.check-wiki.outputs.wiki_exists == 'true'
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: wiki-repo
+          token: ${{ secrets.WIKI_TOKEN }}
+
+      # Update wiki content if wiki exists
+      - name: Update wiki content
+        if: steps.check-wiki.outputs.wiki_exists == 'true'
+        run: |
+          # Copy docs content to wiki repo
+          cp -r wiki/* wiki-repo/
+          cd wiki-repo
+          
+          # Set up git
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          # Add, commit and push changes
+          git add .
+          
+          # Only commit and push if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update wiki content from docs"
+            git remote set-url origin https://x-access-token:${{ secrets.WIKI_TOKEN }}@github.com/${{ github.repository }}.wiki.git
+            git push
+          fi
