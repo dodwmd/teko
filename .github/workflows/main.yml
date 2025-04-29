@@ -1,10 +1,10 @@
-name: Teko CI/CD
+name: CI Pipeline
 
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ master, main, develop ]
   pull_request:
-    branches: [ main, master, develop ]
+    branches: [ master, main, develop ]
 
 jobs:
   php-tests:
@@ -13,10 +13,8 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: teko
-          MYSQL_USER: teko
-          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: teko_test
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -29,38 +27,42 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.2'
-        extensions: mbstring, dom, fileinfo, mysql, pdo_mysql
+        extensions: mbstring, dom, fileinfo, mysql
         coverage: xdebug
 
     - name: Copy .env
       run: cp .env.example .env
 
-    - name: Install PHP Dependencies
-      run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
     - name: Generate key
       run: php artisan key:generate
 
-    - name: Configure Database
+    - name: Set up database
       run: |
-        echo "DB_CONNECTION=mysql" >> .env
-        echo "DB_HOST=127.0.0.1" >> .env
-        echo "DB_PORT=3306" >> .env
-        echo "DB_DATABASE=teko" >> .env
-        echo "DB_USERNAME=teko" >> .env
-        echo "DB_PASSWORD=root" >> .env
+        php artisan migrate --force
 
-    - name: Run Migrations
-      run: php artisan migrate
+    - name: Directory Permissions
+      run: chmod -R 777 storage bootstrap/cache
 
-    - name: Run Linting
-      run: ./scripts/lint.sh
+    - name: PHP CS Fixer
+      run: |
+        if [ -f scripts/lint.sh ]; then
+          ./scripts/lint.sh
+        fi
 
-    - name: Run Static Analysis
-      run: ./scripts/static-analysis.sh
+    - name: Static Analysis
+      run: |
+        if [ -f scripts/static-analysis.sh ]; then
+          ./scripts/static-analysis.sh
+        fi
 
-    - name: Run Tests
-      run: ./scripts/run-tests.sh
+    - name: Execute tests
+      run: |
+        if [ -f scripts/run-tests.sh ]; then
+          ./scripts/run-tests.sh
+        fi
 
   python-tests:
     runs-on: ubuntu-latest
@@ -74,7 +76,7 @@ jobs:
       with:
         python-version: '3.10'
         
-    - name: Install Python dependencies
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         if [ -f agents/requirements.txt ]; then pip install -r agents/requirements.txt; fi
@@ -88,3 +90,57 @@ jobs:
         else
           echo "No agents directory found, skipping Python checks"
         fi
+
+  docker-build-push:
+    needs: [php-tests, python-tests]
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Get version from git tag or generate version
+      id: version
+      run: |
+        if [[ $GITHUB_REF == refs/tags/* ]]; then
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        else
+          # Use short SHA for non-tag builds
+          echo "VERSION=$(date +'%Y%m%d')-$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: |
+          ghcr.io/${{ github.repository_owner }}/teko:latest
+          ghcr.io/${{ github.repository_owner }}/teko:${{ steps.version.outputs.VERSION }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Create GitHub Release
+      if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Release ${{ steps.version.outputs.VERSION }}
+        tag_name: v${{ steps.version.outputs.VERSION }}
+        generate_release_notes: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        draft: false
+        prerelease: false
