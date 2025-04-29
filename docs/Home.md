@@ -12,13 +12,13 @@ Teko is designed to automate development tasks through a series of specialized A
 
 ## Documentation
 
-* [Installation Guide](Installation.md)
-* [Architecture Overview](architecture.md)
-* [CI/CD Pipeline](cicd.md)
-* [Deployment Guide](deployment.md)
-* [Repository Configuration](repo-config.md)
-* [Environment Setup with Direnv](direnv-setup.md)
-* [Security Information](https://github.com/dodwmd/teko/blob/master/SECURITY.md)
+* [Installation Guide](Installation)
+* [Architecture Overview](architecture)
+* [CI/CD Pipeline](cicd)
+* [Deployment Guide](deployment)
+* [Repository Configuration](repo-config)
+* [Environment Setup with Direnv](direnv-setup)
+* [Security Information](https://github.com/dodwmd/teko/security/policy)
 * [Contributing Guidelines](https://github.com/dodwmd/teko/blob/master/.github/CONTRIBUTING.md)
 
 ## Technical Stack
@@ -48,7 +48,7 @@ Teko is designed to automate development tasks through a series of specialized A
 
 ## Getting Started
 
-See the [Installation Guide](Installation.md) for instructions on setting up the project locally or the [Deployment Guide](deployment.md) for container-based deployment.
+See the [Installation Guide](Installation) for instructions on setting up the project locally or the [Deployment Guide](deployment) for container-based deployment.
 
 ## Project Status
 
