@@ -1,44 +1,36 @@
 #!/bin/bash
 set -e
 
-VENV_DIR="agents/.venv"
-AGENT_DIR="agents"
-
-# Check if the virtual environment exists
-if [ ! -d "$VENV_DIR" ]; then
-    echo "Virtual environment not found. Setting up first..."
-    ./scripts/setup-python-env.sh
+# If we're in Docker, use the system Python
+if [ -f /.dockerenv ]; then
+    # Check if virtual environment exists in Docker
+    if [ -d "/var/www/agents/.venv" ]; then
+        echo "Using Docker virtual environment"
+        PYTHON="/var/www/agents/.venv/bin/python"
+    else
+        echo "Using system Python in Docker"
+        PYTHON="python3"
+    fi
+else
+    # Check if we have a virtual environment
+    if [ -d "./agents/.venv" ]; then
+        echo "Using local virtual environment"
+        PYTHON="./agents/.venv/bin/python"
+    else
+        echo "Virtual environment not found, please run 'make setup-python-env'"
+        exit 1
+    fi
 fi
 
-# Activate virtual environment
-source $VENV_DIR/bin/activate
-
-# Check for command line arguments
-if [ $# -eq 0 ]; then
-    echo "Error: Please specify an agent script to run."
-    echo "Usage: $0 <agent_script> [arguments]"
-    echo "Example: $0 core/orchestrator.py"
+# Check if we have an agent name
+if [ -z "$1" ]; then
+    echo "Usage: $0 <agent_name>"
     exit 1
 fi
 
-AGENT_SCRIPT="$1"
+AGENT_NAME=$1
 shift
 
-# Check if agent script exists
-if [ ! -f "$AGENT_DIR/$AGENT_SCRIPT" ]; then
-    echo "Error: Agent script '$AGENT_DIR/$AGENT_SCRIPT' not found."
-    exit 1
-fi
-
-echo "Running agent: $AGENT_SCRIPT"
-echo "=================================================="
-
-# Run the agent script with any additional arguments
-cd $AGENT_DIR
-python3 $AGENT_SCRIPT "$@"
-
-# Return to original directory
-cd - > /dev/null
-
-# Deactivate virtual environment (optional)
-# deactivate
+# Run the agent
+cd agents
+$PYTHON -m agents.$AGENT_NAME "$@"

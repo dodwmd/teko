@@ -45,7 +45,11 @@ COPY --chown=www:www . /var/www
 RUN composer install --no-interaction --no-plugins --no-scripts
 
 # Install Python dependencies
-RUN if [ -f /var/www/agents/requirements.txt ]; then pip3 install -r /var/www/agents/requirements.txt; fi
+RUN if [ -f /var/www/agents/requirements.txt ]; then \
+    python3 -m venv /var/www/agents/.venv && \
+    /var/www/agents/.venv/bin/pip install --upgrade pip && \
+    /var/www/agents/.venv/bin/pip install -r /var/www/agents/requirements.txt; \
+fi
 
 # Generate Laravel key
 RUN php artisan key:generate
