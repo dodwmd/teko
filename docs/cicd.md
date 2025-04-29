@@ -4,7 +4,7 @@ Teko uses GitHub Actions for Continuous Integration and Continuous Deployment, e
 
 ## Overview
 
-The CI/CD pipeline for Teko is designed to handle both PHP (Laravel) and Python (Agents) components, with specialized workflows for each.
+The CI/CD pipeline for Teko is designed to handle both PHP (Laravel) and Python (Agents) components, with specialized workflows for each. It follows a trunk-based development approach with the main branch as the source of truth.
 
 ## Workflow Components
 
@@ -14,6 +14,8 @@ The main workflow (`main.yml`) runs on every push and pull request to main branc
 
 - **PHP Tests**: Linting, static analysis, and unit tests for Laravel components
 - **Python Tests**: Linting, static analysis, and unit tests for agent components
+- **Docker Build**: Builds and pushes container images to GitHub Container Registry
+- **Release Creation**: Automatically creates GitHub releases
 
 In addition to running tests, the CI/CD pipeline also:
 
@@ -22,12 +24,11 @@ In addition to running tests, the CI/CD pipeline also:
 
 This ensures that both code quality and repository configuration remain consistent.
 
-### Security and Deployment Pipeline 
+### Security Pipeline 
 
-The security workflow (`security-deploy.yml`) runs on merges to main branches and weekly, providing:
+The security workflow (`security.yml`) runs on merges to main branches and weekly, providing:
 
 - **Security Scans**: Checks dependencies for vulnerabilities
-- **Deployment**: Automates deployment to staging environments
 
 ## Testing Components
 
@@ -57,48 +58,53 @@ The pipeline automatically sets up appropriate environments:
 - **Python 3.10** with LangChain dependencies
 - **MySQL** database for integration tests
 
+## Docker Container Building
+
+After successful tests, the CI pipeline automatically:
+
+1. Builds Docker containers for the application
+2. Tags with both `latest` and a version-specific tag (`YYYYMMDD-commit` or the git tag)
+3. Pushes containers to GitHub Container Registry (ghcr.io)
+
+### Container Naming Convention
+
+Containers follow this naming structure:
+```
+ghcr.io/owner/teko:tag
+```
+
+Where:
+- `owner` is the GitHub repository owner
+- `tag` is either `latest` or a version identifier
+
+## GitHub Release Management
+
+The CI/CD pipeline creates GitHub releases automatically when:
+
+1. Tests pass successfully
+2. The commit is to the main/master branch
+
+Releases include:
+- Automatically generated release notes
+- Version tag based on date and commit or git tag
+- Links to the Docker container images
+
 ## Local Development
 
-You can run the same checks locally using the Makefile:
+You can run the same tests locally using the Make commands:
 
 ```bash
+# Run PHP tests
+make test-php
+
+# Run Python tests
+make test-python
+
 # Run all tests
 make test
 
-# Run specific checks
-make lint
-make static-analysis
-make unit-tests
-
-# Run security checks
-make security-check
-```
-
-## Docker Support
-
-The pipeline also builds and tests Docker containers:
-
-```bash
-# Build image locally
+# Build Docker container locally
 make docker-build
-
-# Run container
-make docker-run
 ```
 
-## Wiki Synchronization
-
-A special workflow (`wiki-sync.yml`) automatically synchronizes the `docs/` directory with the GitHub wiki whenever documentation changes are made, ensuring documentation remains up-to-date.
-
-## Deployment Strategy
-
-The deployment process follows these steps:
-
-1. Tests and security checks pass
-2. Docker image is built with the current commit
-3. Image is deployed to staging environment
-4. For production, manual approval is required
-
-## Configuration
-
-All workflow files can be found in the `.github/workflows/` directory.
+For more information on working with Docker containers, see the [Deployment Guide](deployment.md).

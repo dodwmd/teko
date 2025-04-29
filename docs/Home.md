@@ -15,6 +15,7 @@ Teko is designed to automate development tasks through a series of specialized A
 * [Installation Guide](Installation.md)
 * [Architecture Overview](architecture.md)
 * [CI/CD Pipeline](cicd.md)
+* [Deployment Guide](deployment.md)
 * [Repository Configuration](repo-config.md)
 * [Environment Setup with Direnv](direnv-setup.md)
 * [Security Information](https://github.com/dodwmd/teko/blob/master/SECURITY.md)
@@ -29,18 +30,25 @@ Teko is designed to automate development tasks through a series of specialized A
 - ChromaDB for vector storage
 
 ### Frontend
-- Orchid Admin Panel
+- Orchid Admin Panel for dashboard and agent management
+- Entrust for role-based permissions
 - Tailwind CSS
 - Alpine.js
+- Social authentication via Socialite (Google and GitHub)
 
-### Infrastructure
+### DevOps & Infrastructure
 - GitHub Actions for CI/CD
-- Docker containers
+- Docker containers with GitHub Container Registry
 - Trunk-based development workflow
+- Automated testing and dependency scanning
+
+## Testing Tools
+- PHP: PHPUnit, Psalm, PHPStan, Laravel Pint
+- Python: pytest, pytest-cov, black, mypy, flake8, isort
 
 ## Getting Started
 
-See the [Installation Guide](Installation.md) for instructions on setting up the project locally.
+See the [Installation Guide](Installation.md) for instructions on setting up the project locally or the [Deployment Guide](deployment.md) for container-based deployment.
 
 ## Project Status
 
