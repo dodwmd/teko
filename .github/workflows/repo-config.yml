@@ -33,7 +33,7 @@ jobs:
       - name: Apply repository configuration
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.REPO_CONFIG_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const { Octokit } = require('@octokit/rest');
