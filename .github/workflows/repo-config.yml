@@ -1,0 +1,214 @@
+name: Repository Configuration
+
+on:
+  push:
+    paths:
+      - '.github/config.json'
+      - '.github/workflows/repo-config.yml'
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Force update all settings'
+        required: false
+        default: 'false'
+
+jobs:
+  apply-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install @octokit/rest
+
+      - name: Apply repository configuration
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.REPO_CONFIG_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const { Octokit } = require('@octokit/rest');
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            
+            const config = JSON.parse(fs.readFileSync('.github/config.json', 'utf8'));
+            const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/');
+            
+            async function updateRepoSettings() {
+              console.log('Updating repository settings...');
+              try {
+                await octokit.repos.update({
+                  owner,
+                  repo,
+                  name: config.repository.name,
+                  description: config.repository.description,
+                  homepage: config.repository.homepage,
+                  private: config.repository.private,
+                  has_issues: config.repository.has_issues,
+                  has_projects: config.repository.has_projects,
+                  has_wiki: config.repository.has_wiki,
+                  has_downloads: config.repository.has_downloads,
+                  default_branch: config.repository.default_branch,
+                  allow_squash_merge: config.repository.allow_squash_merge,
+                  allow_merge_commit: config.repository.allow_merge_commit,
+                  allow_rebase_merge: config.repository.allow_rebase_merge,
+                  delete_branch_on_merge: config.repository.delete_branch_on_merge
+                });
+                
+                // Update topics
+                await octokit.repos.replaceAllTopics({
+                  owner,
+                  repo,
+                  names: config.repository.topics
+                });
+                
+                console.log('Repository settings updated successfully');
+              } catch (error) {
+                console.error('Error updating repository settings:', error);
+              }
+            }
+            
+            async function updateBranchProtectionRules() {
+              console.log('Updating branch protection rules...');
+              
+              for (const rule of config.branch_protection_rules) {
+                try {
+                  console.log(`Setting protection for branch: ${rule.branch}`);
+                  
+                  await octokit.repos.updateBranchProtection({
+                    owner,
+                    repo,
+                    branch: rule.branch,
+                    required_status_checks: rule.required_status_checks,
+                    enforce_admins: rule.enforce_admins,
+                    required_pull_request_reviews: rule.required_pull_request_reviews,
+                    restrictions: rule.restrictions,
+                    required_linear_history: rule.required_linear_history,
+                    allow_force_pushes: false,
+                    allow_deletions: false,
+                    required_conversation_resolution: rule.required_conversation_resolution
+                  });
+                  
+                  console.log(`Protection updated for branch: ${rule.branch}`);
+                } catch (error) {
+                  console.error(`Error updating protection for branch ${rule.branch}:`, error);
+                }
+              }
+            }
+            
+            async function updateEnvironments() {
+              console.log('Updating deployment environments...');
+              
+              for (const env of config.environments) {
+                try {
+                  console.log(`Setting up environment: ${env.name}`);
+                  
+                  // Check if environment exists
+                  let envExists = true;
+                  try {
+                    await octokit.repos.getEnvironment({
+                      owner,
+                      repo,
+                      environment_name: env.name
+                    });
+                  } catch (error) {
+                    envExists = false;
+                  }
+                  
+                  if (envExists) {
+                    await octokit.repos.updateEnvironment({
+                      owner,
+                      repo,
+                      environment_name: env.name,
+                      wait_timer: env.wait_timer,
+                      reviewers: env.reviewers,
+                      deployment_branch_policy: env.deployment_branch_policy
+                    });
+                  } else {
+                    console.log(`Environment ${env.name} doesn't exist yet, will be created when used`);
+                  }
+                  
+                } catch (error) {
+                  console.error(`Error setting up environment ${env.name}:`, error);
+                }
+              }
+            }
+            
+            async function updateTeamAccess() {
+              console.log('Updating team access...');
+              
+              for (const team of config.team_access) {
+                try {
+                  console.log(`Setting permission for team: ${team.team}`);
+                  
+                  await octokit.teams.addOrUpdateRepoPermissionsInOrg({
+                    org: owner,
+                    team_slug: team.team,
+                    owner,
+                    repo,
+                    permission: team.permission
+                  });
+                  
+                  console.log(`Permission updated for team: ${team.team}`);
+                } catch (error) {
+                  console.error(`Error updating permission for team ${team.team}:`, error);
+                }
+              }
+            }
+            
+            async function updateCollaborators() {
+              console.log('Updating collaborators...');
+              
+              for (const collaborator of config.collaborators) {
+                try {
+                  console.log(`Setting permission for collaborator: ${collaborator.username}`);
+                  
+                  await octokit.repos.addCollaborator({
+                    owner,
+                    repo,
+                    username: collaborator.username,
+                    permission: collaborator.permission
+                  });
+                  
+                  console.log(`Permission updated for collaborator: ${collaborator.username}`);
+                } catch (error) {
+                  console.error(`Error updating permission for collaborator ${collaborator.username}:`, error);
+                }
+              }
+            }
+            
+            async function main() {
+              await updateRepoSettings();
+              await updateBranchProtectionRules();
+              await updateEnvironments();
+              
+              // These might fail if running in a personal repo without org/team access
+              try {
+                await updateTeamAccess();
+              } catch (error) {
+                console.log('Skipping team access update - might be a personal repo');
+              }
+              
+              await updateCollaborators();
+              
+              console.log('Repository configuration completed');
+            }
+            
+            main().catch(error => {
+              console.error('Error applying configuration:', error);
+              process.exit(1);
+            });
+
+      - name: Output configuration results
+        run: |
+          echo "Repository configuration has been applied."
+          echo "View the Actions log for detailed information about what changes were made."
+          echo "If you need to make further adjustments, edit the .github/config.json file and commit the changes."
