@@ -4,7 +4,8 @@ langchain-community>=0.3.23,<0.4.0
 openai>=1.12.0,<2.0.0
 python-dotenv>=1.0.1
 pydantic>=2.7.4,<3.0.0
-chromadb>=0.4.18
+# Replaced chromadb with sentence-transformers which has better prebuilt wheel availability
+sentence-transformers>=2.2.2
 tiktoken>=0.5.1
 numpy>=1.26.4
 pandas>=2.1.4
