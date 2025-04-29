@@ -1,47 +1,21 @@
-# Teko
+# Teko Documentation
 
-Teko (Task Engine KO) is an AI-powered development automation system built using Laravel and LangChain. It provides autonomous agents for various coding tasks, code reviews, and project management.
+This directory contains documentation for the Teko project. These files are automatically synced with the [GitHub Wiki](https://github.com/dodwmd/teko/wiki).
 
-## About Teko
+## Available Documentation
 
-Teko is designed to automate development tasks through a series of specialized AI agents. It offers:
+- [Home](Home.md) - Project overview and documentation home
+- [Installation Guide](Installation.md) - How to set up the project locally
+- [Architecture Overview](architecture.md) - System design and components
+- [CI/CD Pipeline](cicd.md) - Continuous integration and deployment setup
+- [Repository Configuration](repo-config.md) - GitHub repository automation
+- [Direnv Setup](direnv-setup.md) - Environment automation with direnv
 
-- **Code Implementation Agent**: Pulls tasks from Jira/GitHub, implements code, creates PRs, and runs tests
-- **Code Review Agent**: Reviews codebase, raises issues and feature requests
-- **Story Management Agent**: Sizes stories, rewrites/breaks up stories, prioritizes work, and groups related tasks
+## Viewing the Documentation
 
-## Documentation
+You can view these docs in three ways:
+1. Directly in this repository by browsing the files above
+2. On the [GitHub Wiki](https://github.com/dodwmd/teko/wiki)
+3. By cloning the wiki repository: `git clone https://github.com/dodwmd/teko.wiki.git`
 
-* [Installation Guide](Installation.md)
-* [Developer Setup](developer-setup.md)
-* [Architecture Overview](architecture.md)
-* [Python Agent System](agent-system.md)
-* [Testing & Quality](testing-quality.md)
-* [Environment Setup with Direnv](direnv-setup.md)
-* [Database Schema](database-schema.md)
-* [CI/CD Pipeline](cicd.md)
-* [Contributing Guidelines](../CONTRIBUTING.md)
-* [Security Information](../SECURITY.md)
-
-## Technical Stack
-
-### Backend
-- Laravel 10+ (PHP 8.2+)
-- LangChain (Python 3.10+)
-- MySQL Database
-
-### Frontend
-- Orchid Admin Panel
-- Laravel Blade templates
-
-### Authentication
-- Socialite (Google/GitHub authentication)
-- Entrust (role-based permissions)
-
-### Testing & Quality
-- PHP: PHPUnit, PHPStan, Psalm, Laravel Pint
-- Python: pytest, Black, MyPy, Flake8, isort
-
-## License
-
-[MIT License](../LICENSE)
+The documentation is automatically synced with the wiki whenever changes are pushed to the `docs/` directory.
