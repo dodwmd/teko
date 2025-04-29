@@ -15,7 +15,12 @@ The main workflow (`main.yml`) runs on every push and pull request to main branc
 - **PHP Tests**: Linting, static analysis, and unit tests for Laravel components
 - **Python Tests**: Linting, static analysis, and unit tests for agent components
 
-This ensures that all code meets quality standards before being merged.
+In addition to running tests, the CI/CD pipeline also:
+
+1. Syncs documentation to the wiki (via the `wiki-sync.yml` workflow)
+2. Applies repository configuration settings (via the `repo-config.yml` workflow)
+
+This ensures that both code quality and repository configuration remain consistent.
 
 ### Security and Deployment Pipeline 
 
