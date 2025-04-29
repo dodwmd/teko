@@ -13,76 +13,41 @@ jobs:
   sync-wiki:
     runs-on: ubuntu-latest
     steps:
-      # Check out docs from main repo
-      - name: Checkout main repository
+      - name: Checkout source
         uses: actions/checkout@v2
 
-      # Create wiki folder and copy content
-      - name: Set up wiki content
+      - name: Configure Git
         run: |
+          git config --global user.name "GitHub Wiki Bot"
+          git config --global user.email "actions@github.com"
+
+      - name: Push Wiki Changes
+        run: |
+          # Clone the wiki repository
+          git clone https://github.com/${{ github.repository }}.wiki.git wiki
+          
+          # Ensure wiki directory exists
           mkdir -p wiki
+          
+          # Copy docs content to wiki directory
           cp -r docs/* wiki/
-          # Rename README.md to Home.md for wiki landing page
+          
+          # If README.md exists, rename it to Home.md for wiki landing page
           if [ -f wiki/README.md ]; then
             mv wiki/README.md wiki/Home.md
           fi
-
-      # Check if wiki repository exists
-      - name: Check if wiki repository exists
-        id: check-wiki
-        run: |
-          if git ls-remote --exit-code https://github.com/${{ github.repository }}.wiki.git > /dev/null 2>&1; then
-            echo "Wiki repository exists"
-            echo "wiki_exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "Wiki repository does not exist yet"
-            echo "wiki_exists=false" >> $GITHUB_OUTPUT
-          fi
-
-      # Initialize wiki if it doesn't exist
-      - name: Initialize wiki if needed
-        if: steps.check-wiki.outputs.wiki_exists == 'false'
-        run: |
+          
+          # Push changes
           cd wiki
-          git init
-          git config user.name "GitHub Actions"
+          git config user.name "GitHub Wiki Bot"
           git config user.email "actions@github.com"
           git add .
-          git commit -m "Initial wiki setup"
-          git remote add origin https://x-access-token:${{ secrets.WIKI_TOKEN }}@github.com/${{ github.repository }}.wiki.git
-          # Try to push, but don't fail if it doesn't work
-          git push -u origin master || echo "Failed to push to wiki - may need manual initialization"
-          echo "Please manually create at least one wiki page through the GitHub UI"
-
-      # Check out wiki repository if it exists
-      - name: Checkout wiki repository
-        if: steps.check-wiki.outputs.wiki_exists == 'true'
-        uses: actions/checkout@v2
-        with:
-          repository: ${{ github.repository }}.wiki
-          path: wiki-repo
-          token: ${{ secrets.WIKI_TOKEN }}
-
-      # Update wiki content if wiki exists
-      - name: Update wiki content
-        if: steps.check-wiki.outputs.wiki_exists == 'true'
-        run: |
-          # Copy docs content to wiki repo
-          cp -r wiki/* wiki-repo/
-          cd wiki-repo
           
-          # Set up git
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          
-          # Add, commit and push changes
-          git add .
-          
-          # Only commit and push if there are changes
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update wiki content from docs"
+          # Only commit if there are changes
+          if git status --porcelain | grep .; then
+            git commit -m "Update wiki from docs directory"
             git remote set-url origin https://x-access-token:${{ secrets.WIKI_TOKEN }}@github.com/${{ github.repository }}.wiki.git
             git push
+          else
+            echo "No changes to commit"
           fi
