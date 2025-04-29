@@ -9,12 +9,12 @@ import logging
 from typing import Any, Dict, List, Optional
 
 from langchain.chains import LLMChain
-from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.memory import ConversationBufferMemory
 
 # LangChain imports
 from langchain.prompts import PromptTemplate
 from langchain.schema import Document
+from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_openai import ChatOpenAI
 
