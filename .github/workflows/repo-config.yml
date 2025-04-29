@@ -7,13 +7,7 @@ on:
       - '.github/workflows/repo-config.yml'
     branches:
       - master
-      - main
   workflow_dispatch:
-    inputs:
-      force_update:
-        description: 'Force update all settings'
-        required: false
-        default: 'false'
 
 jobs:
   apply-config:
@@ -104,100 +98,9 @@ jobs:
               }
             }
             
-            async function updateEnvironments() {
-              console.log('Updating deployment environments...');
-              
-              for (const env of config.environments) {
-                try {
-                  console.log(`Setting up environment: ${env.name}`);
-                  
-                  // Check if environment exists
-                  let envExists = true;
-                  try {
-                    await octokit.repos.getEnvironment({
-                      owner,
-                      repo,
-                      environment_name: env.name
-                    });
-                  } catch (error) {
-                    envExists = false;
-                  }
-                  
-                  if (envExists) {
-                    await octokit.repos.updateEnvironment({
-                      owner,
-                      repo,
-                      environment_name: env.name,
-                      wait_timer: env.wait_timer,
-                      reviewers: env.reviewers,
-                      deployment_branch_policy: env.deployment_branch_policy
-                    });
-                  } else {
-                    console.log(`Environment ${env.name} doesn't exist yet, will be created when used`);
-                  }
-                  
-                } catch (error) {
-                  console.error(`Error setting up environment ${env.name}:`, error);
-                }
-              }
-            }
-            
-            async function updateTeamAccess() {
-              console.log('Updating team access...');
-              
-              for (const team of config.team_access) {
-                try {
-                  console.log(`Setting permission for team: ${team.team}`);
-                  
-                  await octokit.teams.addOrUpdateRepoPermissionsInOrg({
-                    org: owner,
-                    team_slug: team.team,
-                    owner,
-                    repo,
-                    permission: team.permission
-                  });
-                  
-                  console.log(`Permission updated for team: ${team.team}`);
-                } catch (error) {
-                  console.error(`Error updating permission for team ${team.team}:`, error);
-                }
-              }
-            }
-            
-            async function updateCollaborators() {
-              console.log('Updating collaborators...');
-              
-              for (const collaborator of config.collaborators) {
-                try {
-                  console.log(`Setting permission for collaborator: ${collaborator.username}`);
-                  
-                  await octokit.repos.addCollaborator({
-                    owner,
-                    repo,
-                    username: collaborator.username,
-                    permission: collaborator.permission
-                  });
-                  
-                  console.log(`Permission updated for collaborator: ${collaborator.username}`);
-                } catch (error) {
-                  console.error(`Error updating permission for collaborator ${collaborator.username}:`, error);
-                }
-              }
-            }
-            
             async function main() {
               await updateRepoSettings();
               await updateBranchProtectionRules();
-              await updateEnvironments();
-              
-              // These might fail if running in a personal repo without org/team access
-              try {
-                await updateTeamAccess();
-              } catch (error) {
-                console.log('Skipping team access update - might be a personal repo');
-              }
-              
-              await updateCollaborators();
               
               console.log('Repository configuration completed');
             }
@@ -211,4 +114,3 @@ jobs:
         run: |
           echo "Repository configuration has been applied."
           echo "View the Actions log for detailed information about what changes were made."
-          echo "If you need to make further adjustments, edit the .github/config.json file and commit the changes."
