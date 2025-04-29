@@ -15,6 +15,7 @@ if [ -d "agents" ]; then
         if python3 -c "import black" &> /dev/null; then
             echo "Running Black for Python files..."
             cd agents && python3 -m black .
+            cd $OLDPWD  # Return to the original directory
         else
             echo "Warning: Black not installed. To install, run: pip install -r agents/requirements.txt"
         fi
@@ -23,6 +24,7 @@ if [ -d "agents" ]; then
         if python3 -c "import isort" &> /dev/null; then
             echo "Running iSort for Python files..."
             cd agents && python3 -m isort .
+            cd $OLDPWD  # Return to the original directory
         else
             echo "Warning: isort not installed. To install, run: pip install -r agents/requirements.txt"
         fi

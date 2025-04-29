@@ -18,6 +18,7 @@ if [ -d "agents" ]; then
         if python3 -c "import mypy" &> /dev/null; then
             echo "Running MyPy for Python typing..."
             cd agents && python3 -m mypy .
+            cd $OLDPWD  # Return to the original directory
         else
             echo "Warning: MyPy not installed. To install, run: pip install -r agents/requirements.txt"
         fi
@@ -26,6 +27,7 @@ if [ -d "agents" ]; then
         if python3 -c "import flake8" &> /dev/null; then
             echo "Running Flake8 for Python linting..."
             cd agents && python3 -m flake8 .
+            cd $OLDPWD  # Return to the original directory
         else
             echo "Warning: Flake8 not installed. To install, run: pip install -r agents/requirements.txt"
         fi
