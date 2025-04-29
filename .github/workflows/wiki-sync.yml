@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'wiki/**'
+      - 'docs/**'
       - '.github/workflows/wiki-sync.yml'
   # Allow manual triggering
   workflow_dispatch:
