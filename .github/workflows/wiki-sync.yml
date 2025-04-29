@@ -1,0 +1,47 @@
+name: Wiki Sync
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - 'docs/**'
+      - '.github/workflows/wiki-sync.yml'
+
+jobs:
+  wiki-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          path: source
+          
+      - name: Checkout wiki repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: wiki
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Copy docs to wiki
+        run: |
+          # Copy all markdown files from docs to wiki
+          find source/docs -name "*.md" -exec cp {} wiki/ \;
+          # Rename files to match wiki page format if needed
+          cd wiki
+          for file in *.md; do
+            # Remove .md extension for Home.md
+            if [ "$file" = "README.md" ]; then
+              mv "$file" "Home.md"
+            fi
+          done
+          
+      - name: Commit and push changes to wiki
+        run: |
+          cd wiki
+          git config user.name "GitHub Wiki Bot"
+          git config user.email "actions@github.com"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Updated wiki from docs directory" && git push
