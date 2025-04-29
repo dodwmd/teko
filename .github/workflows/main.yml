@@ -84,9 +84,9 @@ jobs:
     - name: Run Python linting and tests
       run: |
         if [ -d agents ]; then
-          ./scripts/lint.sh 
-          ./scripts/static-analysis.sh 
-          ./scripts/run-tests.sh 
+          ./scripts/python-lint.sh 
+          ./scripts/python-static-analysis.sh 
+          ./scripts/python-tests.sh 
         else
           echo "No agents directory found, skipping Python checks"
         fi
