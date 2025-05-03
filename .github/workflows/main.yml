@@ -18,6 +18,11 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      selenium:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+        options: --health-cmd="/opt/bin/check-grid.sh" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
     - name: Checkout
@@ -63,7 +68,39 @@ jobs:
         if [ -f scripts/run-tests.sh ]; then
           ./scripts/run-tests.sh
         fi
-
+        
+    - name: Setup Dusk environment
+      run: |
+        # Update .env for Dusk tests
+        php artisan dusk:chrome-driver --detect
+        export DUSK_DRIVER_URL="http://localhost:4444/wd/hub"
+        echo "DUSK_DRIVER_URL=http://localhost:4444/wd/hub" >> .env
+        
+    - name: Run Dusk Tests
+      env:
+        DUSK_DRIVER_URL: "http://localhost:4444/wd/hub"
+      run: |
+        if [ -f scripts/dusk-tests.sh ]; then
+          # Give some time for Selenium to be ready
+          sleep 5
+          php artisan serve --port=8000 &
+          ./scripts/dusk-tests.sh
+        fi
+        
+    - name: Upload screenshots
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: screenshots
+        path: tests/Browser/screenshots
+      
+    - name: Upload console logs
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: console-logs
+        path: tests/Browser/console
+      
   python-tests:
     runs-on: ubuntu-latest
     
@@ -124,6 +161,7 @@ jobs:
         fi
         
     - name: Build and push Docker image
+      if: false # Temporarily disabled
       uses: docker/build-push-action@v4
       with:
         context: .

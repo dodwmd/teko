@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\Agent\AgentEditScreen;
+use App\Orchid\Screens\Agent\AgentListScreen;
+use App\Orchid\Screens\DashboardScreen;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -11,9 +14,16 @@ use App\Orchid\Screens\Examples\ExampleGridScreen;
 use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
 use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
+use App\Orchid\Screens\Monitoring\AlertSettingsScreen;
+use App\Orchid\Screens\Monitoring\ErrorDashboardScreen;
+use App\Orchid\Screens\Monitoring\ErrorDetailScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Repository\RepositoryEditScreen;
+use App\Orchid\Screens\Repository\RepositoryListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
+use App\Orchid\Screens\Task\TaskEditScreen;
+use App\Orchid\Screens\Task\TaskListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
@@ -34,6 +44,70 @@ use Tabuna\Breadcrumbs\Trail;
 // Main
 Route::screen('/main', PlatformScreen::class)
     ->name('platform.main');
+
+// Custom Dashboard
+Route::screen('/dashboard', DashboardScreen::class)
+    ->name('platform.dashboard')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->push('Dashboard', route('platform.dashboard')));
+
+// Agent Management
+Route::screen('agents', AgentListScreen::class)
+    ->name('platform.agent.list')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.dashboard')
+        ->push('Agents', route('platform.agent.list')));
+
+Route::screen('agents/{agent?}', AgentEditScreen::class)
+    ->name('platform.agent.edit')
+    ->breadcrumbs(fn (Trail $trail, $agent = null) => $trail
+        ->parent('platform.agent.list')
+        ->push($agent ? 'Edit Agent' : 'Create Agent', route('platform.agent.edit', $agent)));
+
+// Task Management
+Route::screen('tasks', TaskListScreen::class)
+    ->name('platform.task.list')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.dashboard')
+        ->push('Tasks', route('platform.task.list')));
+
+Route::screen('tasks/{task?}', TaskEditScreen::class)
+    ->name('platform.task.edit')
+    ->breadcrumbs(fn (Trail $trail, $task = null) => $trail
+        ->parent('platform.task.list')
+        ->push($task ? 'Edit Task' : 'Create Task', route('platform.task.edit', $task)));
+
+// Repository Management
+Route::screen('repositories', RepositoryListScreen::class)
+    ->name('platform.repository.list')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.dashboard')
+        ->push('Repositories', route('platform.repository.list')));
+
+Route::screen('repositories/{repository?}', RepositoryEditScreen::class)
+    ->name('platform.repository.edit')
+    ->breadcrumbs(fn (Trail $trail, $repository = null) => $trail
+        ->parent('platform.repository.list')
+        ->push($repository ? 'Edit Repository' : 'Create Repository', route('platform.repository.edit', $repository)));
+
+// Monitoring & Analytics
+Route::screen('monitoring/errors', ErrorDashboardScreen::class)
+    ->name('platform.monitoring.errors')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.dashboard')
+        ->push('Error Monitoring', route('platform.monitoring.errors')));
+
+Route::screen('monitoring/errors/{id}', ErrorDetailScreen::class)
+    ->name('platform.monitoring.error.view')
+    ->breadcrumbs(fn (Trail $trail, $id) => $trail
+        ->parent('platform.monitoring.errors')
+        ->push('Error Details', route('platform.monitoring.error.view', $id)));
+
+Route::screen('monitoring/alerts', AlertSettingsScreen::class)
+    ->name('platform.monitoring.alerts')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.monitoring.errors')
+        ->push('Alert Settings', route('platform.monitoring.alerts')));
 
 // Platform > Profile
 Route::screen('profile', UserProfileScreen::class)
@@ -100,5 +174,3 @@ Route::screen('/examples/layouts', ExampleLayoutsScreen::class)->name('platform.
 Route::screen('/examples/grid', ExampleGridScreen::class)->name('platform.example.grid');
 Route::screen('/examples/charts', ExampleChartsScreen::class)->name('platform.example.charts');
 Route::screen('/examples/cards', ExampleCardsScreen::class)->name('platform.example.cards');
-
-// Route::screen('idea', Idea::class, 'platform.screens.idea');

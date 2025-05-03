@@ -30,37 +30,35 @@ class PlatformProvider extends OrchidServiceProvider
     public function menu(): array
     {
         return [
-            Menu::make('Get Started')
-                ->icon('bs.book')
-                ->title('Navigation')
-                ->route(config('platform.index')),
+            Menu::make('Dashboard')
+                ->icon('bs.speedometer2')
+                ->title('Teko System')
+                ->route('platform.dashboard'),
 
-            Menu::make('Sample Screen')
-                ->icon('bs.collection')
-                ->route('platform.example')
-                ->badge(fn () => 6),
+            Menu::make('Agents')
+                ->icon('bs.robot')
+                ->route('platform.agent.list')
+                ->permission('platform.agent.list'),
 
-            Menu::make('Form Elements')
-                ->icon('bs.card-list')
-                ->route('platform.example.fields')
-                ->active('*/examples/form/*'),
+            Menu::make('Tasks')
+                ->icon('bs.clipboard-check')
+                ->route('platform.task.list')
+                ->badge(fn () => 5, Color::INFO),
 
-            Menu::make('Layouts Overview')
-                ->icon('bs.window-sidebar')
-                ->route('platform.example.layouts'),
-
-            Menu::make('Grid System')
-                ->icon('bs.columns-gap')
-                ->route('platform.example.grid'),
-
-            Menu::make('Charts')
-                ->icon('bs.bar-chart')
-                ->route('platform.example.charts'),
-
-            Menu::make('Cards')
-                ->icon('bs.card-text')
-                ->route('platform.example.cards')
+            Menu::make('Repositories')
+                ->icon('bs.git')
+                ->route('platform.repository.list')
                 ->divider(),
+
+            Menu::make('Error Monitoring')
+                ->icon('bs.exclamation-triangle')
+                ->route('platform.monitoring.errors')
+                ->badge(fn () => 3, Color::DANGER),
+
+            Menu::make('Alert Settings')
+                ->icon('bs.bell')
+                ->route('platform.monitoring.alerts')
+                ->permission('platform.systems.settings'),
 
             Menu::make(__('Users'))
                 ->icon('bs.people')
@@ -75,16 +73,19 @@ class PlatformProvider extends OrchidServiceProvider
                 ->divider(),
 
             Menu::make('Documentation')
-                ->title('Docs')
-                ->icon('bs.box-arrow-up-right')
+                ->title('Resources')
+                ->icon('bs.book')
                 ->url('https://orchid.software/en/docs')
                 ->target('_blank'),
 
-            Menu::make('Changelog')
-                ->icon('bs.box-arrow-up-right')
-                ->url('https://github.com/orchidsoftware/platform/blob/master/CHANGELOG.md')
-                ->target('_blank')
-                ->badge(fn () => Dashboard::version(), Color::DARK),
+            Menu::make('GitHub Repository')
+                ->icon('bs.github')
+                ->url('https://github.com/dodwmd/teko')
+                ->target('_blank'),
+
+            Menu::make('Version')
+                ->icon('bs.code')
+                ->badge(fn () => '1.0.0-dev', Color::DARK),
         ];
     }
 
@@ -99,6 +100,22 @@ class PlatformProvider extends OrchidServiceProvider
             ItemPermission::group(__('System'))
                 ->addPermission('platform.systems.roles', __('Roles'))
                 ->addPermission('platform.systems.users', __('Users')),
+
+            ItemPermission::group(__('Agent Management'))
+                ->addPermission('platform.agent.list', __('View Agents'))
+                ->addPermission('platform.agent.edit', __('Edit Agents')),
+
+            ItemPermission::group(__('Task Management'))
+                ->addPermission('platform.task.list', __('View Tasks'))
+                ->addPermission('platform.task.edit', __('Edit Tasks')),
+
+            ItemPermission::group(__('Repository Management'))
+                ->addPermission('platform.repository.list', __('View Repositories'))
+                ->addPermission('platform.repository.edit', __('Edit Repositories')),
+
+            ItemPermission::group(__('Monitoring'))
+                ->addPermission('platform.monitoring.errors', __('View Error Logs'))
+                ->addPermission('platform.monitoring.alerts', __('Configure Alerts')),
         ];
     }
 }

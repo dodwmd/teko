@@ -11,7 +11,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Register the analytics service provider
+        $this->app->register(AnalyticsServiceProvider::class);
     }
 
     /**
