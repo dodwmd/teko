@@ -1,0 +1,28 @@
+{
+    "allLinks": [
+        "\n                \n  \n\n\n\n                Edit Task: Task for UI Exploration\n             (http:\/\/localhost:8000\/admin\/tasks\/1#)",
+        "\n                \n            \n  \n\n\n    \n    \n        Laravel\n    \n\n             (http:\/\/localhost:8000\/admin\/main)",
+        "\n                    \n  \n  \n\n\n        \n        Dashboard\n\n             (http:\/\/localhost:8000\/admin\/dashboard)",
+        "\n                    \n  \n  \n  \n\n\n        \n        Tasks\n\n                    5\n             (http:\/\/localhost:8000\/admin\/tasks)",
+        "\n                    \n  \n\n\n        \n        Repositories\n\n             (http:\/\/localhost:8000\/admin\/repositories)",
+        "\n                    \n  \n  \n\n\n        \n        Error Monitoring\n\n                    3\n             (http:\/\/localhost:8000\/admin\/monitoring\/errors)",
+        "\n                    \n  \n\n\n        \n        Users\n\n             (http:\/\/localhost:8000\/admin\/users)",
+        "\n                    \n  \n\n\n        \n        Roles\n\n             (http:\/\/localhost:8000\/admin\/roles)",
+        "\n                    \n  \n\n\n        \n        Documentation\n\n             (https:\/\/github.com\/dodwmd\/teko\/wiki)",
+        "\n                    \n  \n\n\n        \n        GitHub Repository\n\n             (https:\/\/github.com\/dodwmd\/teko)",
+        "\n                    \n  \n\n\n        \n        Version\n\n                    1.0.0-dev\n             (http:\/\/localhost:8000\/admin\/tasks\/1#menu-version)",
+        "\n                    \n        \n        \n            Admin User\n            Admin\n        \n     (http:\/\/localhost:8000\/admin\/profile)",
+        "\n    \n  \n\n\n\n    \n\n    \n (http:\/\/localhost:8000\/admin\/notifications)",
+        "\n                Dashboard\n             (http:\/\/localhost:8000\/admin\/dashboard)",
+        "\n                Tasks\n             (http:\/\/localhost:8000\/admin\/tasks)",
+        "\n                        General\n                     (http:\/\/localhost:8000\/admin\/tasks\/1#tab-d204ab71c138f13c1958a4ab649354b9214f7623)",
+        "\n                        Metadata\n                     (http:\/\/localhost:8000\/admin\/tasks\/1#tab-43bdbab5a30370057d50b7b21f3c042a4d84d7db)",
+        "\n                        Comments\n                     (http:\/\/localhost:8000\/admin\/tasks\/1#tab-e61c01b35e3b25bfaeaf2a140facab0db6a32695)",
+        "\n                        #SYV-411\n                     (http:\/\/www.borer.com\/)",
+        "\n                Version: 14.50.1\n             (http:\/\/github.com\/dodwmd\/teko)"
+    ],
+    "commentItems": 0,
+    "replyButtons": 0,
+    "tabComments": false,
+    "tabCommentsLink": false
+}

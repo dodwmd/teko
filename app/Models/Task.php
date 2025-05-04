@@ -2,15 +2,37 @@
 
 namespace App\Models;
 
+use App\Traits\DocBlockHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
+/**
+ * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property int $repository_id
+ * @property string|null $external_id
+ * @property string|null $external_url
+ * @property string|null $provider
+ * @property string $status
+ * @property string $type
+ * @property string|null $branch_name
+ * @property string|null $pull_request_url
+ * @property array|null $metadata
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ * @property-read \App\Models\Repository|null $repository
+ * 
+ * @uses \Illuminate\Database\Eloquent\Factories\HasFactory<\App\Models\Task>
+ */
 class Task extends Model
 {
-    use AsSource, Filterable, HasFactory;
+    use AsSource, Filterable, DocBlockHelpers;
+    /** @use HasFactory<\App\Models\Task> */
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.

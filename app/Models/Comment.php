@@ -2,13 +2,35 @@
 
 namespace App\Models;
 
+use App\Traits\DocBlockHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * @property int $id
+ * @property string $content
+ * @property int $user_id
+ * @property int|null $parent_id
+ * @property int $commentable_id
+ * @property string $commentable_type
+ * @property string|null $external_id
+ * @property string|null $external_url
+ * @property string|null $status
+ * @property array|null $metadata
+ * @property \Illuminate\Support\Carbon|null $synced_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ * @property-read \App\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $commentable
+ * 
+ * @uses \Illuminate\Database\Eloquent\Factories\HasFactory<\App\Models\Comment>
+ */
 class Comment extends Model
 {
+    use DocBlockHelpers;
+    /** @use HasFactory<\App\Models\Comment> */
     use HasFactory;
 
     /**

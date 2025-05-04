@@ -1,0 +1,21 @@
+Facebook\WebDriver\Exception\Internal\WebDriverCurlException: Curl error thrown for http POST to /session with params: {"capabilities":{"firstMatch":[{"browserName":"chrome","goog:chromeOptions":{"args":["--window-size=1920,1080","--disable-search-engine-choice-screen","--disable-smooth-scrolling","--ignore-certificate-errors","--disable-extensions","--disable-gpu","--no-sandbox","--disable-dev-shm-usage","--disable-web-security","--allow-running-insecure-content","--disable-popup-blocking","--blink-settings=imagesEnabled=true","--headless=new"]},"pageLoadStrategy":"normal","unhandledPromptBehavior":"accept","timeouts":{"implicit":30000,"pageLoad":60000,"script":60000}}]},"desiredCapabilities":{"browserName":"chrome","platform":"ANY","goog:chromeOptions":{"args":["--window-size=1920,1080","--disable-search-engine-choice-screen","--disable-smooth-scrolling","--ignore-certificate-errors","--disable-extensions","--disable-gpu","--no-sandbox","--disable-dev-shm-usage","--disable-web-security","--allow-running-insecure-content","--disable-popup-blocking","--blink-settings=imagesEnabled=true","--headless=new"]},"pageLoadStrategy":"normal","unhandledPromptBehavior":"accept","timeouts":{"implicit":30000,"pageLoad":60000,"script":60000}}}
+
+Failed to connect to localhost port 9515 after 0 ms: Couldn't connect to server
+#0 /home/dodwmd/code/vibe/teko/vendor/php-webdriver/webdriver/lib/Remote/HttpCommandExecutor.php(328): Facebook\WebDriver\Exception\Internal\WebDriverCurlException::forCurlError()
+#1 /home/dodwmd/code/vibe/teko/vendor/php-webdriver/webdriver/lib/Remote/RemoteWebDriver.php(129): Facebook\WebDriver\Remote\HttpCommandExecutor->execute()
+#2 /home/dodwmd/code/vibe/teko/tests/DuskTestCase.php(129): Facebook\WebDriver\Remote\RemoteWebDriver::create()
+#3 /home/dodwmd/code/vibe/teko/vendor/laravel/dusk/src/Concerns/ProvidesBrowser.php(220): Tests\DuskTestCase->driver()
+#4 /home/dodwmd/code/vibe/teko/vendor/laravel/framework/src/Illuminate/Support/helpers.php(338): Laravel\Dusk\TestCase->Laravel\Dusk\Concerns\{closure}()
+#5 /home/dodwmd/code/vibe/teko/vendor/laravel/dusk/src/Concerns/ProvidesBrowser.php(219): retry()
+#6 /home/dodwmd/code/vibe/teko/vendor/laravel/dusk/src/Concerns/ProvidesBrowser.php(99): Laravel\Dusk\TestCase->createWebDriver()
+#7 /home/dodwmd/code/vibe/teko/vendor/laravel/dusk/src/Concerns/ProvidesBrowser.php(67): Laravel\Dusk\TestCase->createBrowsersFor()
+#8 /home/dodwmd/code/vibe/teko/tests/Browser/CommentSystemTest.php(35): Laravel\Dusk\TestCase->browse()
+#9 /home/dodwmd/code/vibe/teko/vendor/phpunit/phpunit/src/Framework/TestCase.php(1656): Tests\Browser\CommentSystemTest->test_task_ui_structure()
+#10 /home/dodwmd/code/vibe/teko/vendor/phpunit/phpunit/src/Framework/TestCase.php(514): PHPUnit\Framework\TestCase->runTest()
+#11 /home/dodwmd/code/vibe/teko/vendor/phpunit/phpunit/src/Framework/TestRunner/TestRunner.php(87): PHPUnit\Framework\TestCase->runBare()
+#12 /home/dodwmd/code/vibe/teko/vendor/phpunit/phpunit/src/Framework/TestCase.php(361): PHPUnit\Framework\TestRunner->run()
+#13 /home/dodwmd/code/vibe/teko/vendor/phpunit/phpunit/src/Framework/TestSuite.php(369): PHPUnit\Framework\TestCase->run()
+#14 /home/dodwmd/code/vibe/teko/vendor/phpunit/phpunit/src/TextUI/TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#15 /home/dodwmd/code/vibe/teko/vendor/phpunit/phpunit/src/TextUI/Application.php(210): PHPUnit\TextUI\TestRunner->run()
+#16 /home/dodwmd/code/vibe/teko/vendor/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run()
+#17 {main}

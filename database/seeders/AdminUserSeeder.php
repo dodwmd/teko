@@ -22,14 +22,44 @@ class AdminUserSeeder extends Seeder
                 'slug' => 'admin',
                 'name' => 'Administrator',
                 'permissions' => [
+                    // Core platform access
                     'platform.index' => true,
+                    'platform.main' => true,
+                    'platform.dashboard' => true,
+
+                    // System management
                     'platform.systems' => true,
                     'platform.systems.roles' => true,
                     'platform.systems.users' => true,
+                    'platform.systems.attachment' => true,
+                    'platform.systems.settings' => true,
+
+                    // Agent management
                     'platform.agents.dashboard' => true,
                     'platform.agents.repository' => true,
                     'platform.agents.task' => true,
                     'platform.agents.monitoring' => true,
+                    'platform.agent.list' => true,
+                    'platform.agent.edit' => true,
+
+                    // Task management
+                    'platform.task.list' => true,
+                    'platform.task.edit' => true,
+
+                    // Repository management
+                    'platform.repository.list' => true,
+                    'platform.repository.edit' => true,
+
+                    // Error monitoring
+                    'platform.monitoring.errors' => true,
+                    'platform.monitoring.alerts' => true,
+
+                    // Profile management
+                    'platform.profile' => true,
+
+                    // Additional system permissions
+                    'platform.search' => true,
+                    'platform.notifications' => true,
                 ],
             ]);
         }

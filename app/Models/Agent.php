@@ -2,14 +2,33 @@
 
 namespace App\Models;
 
+use App\Traits\DocBlockHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $type
+ * @property string $language
+ * @property bool $enabled
+ * @property array|null $configuration
+ * @property string|null $description
+ * @property array|null $capabilities
+ * @property array|null $metadata
+ * @property \Illuminate\Support\Carbon|null $last_active_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ * 
+ * @uses \Illuminate\Database\Eloquent\Factories\HasFactory<\App\Models\Agent>
+ */
 class Agent extends Model
 {
-    use AsSource, Filterable, HasFactory;
+    use AsSource, Filterable, DocBlockHelpers;
+    /** @use HasFactory<\App\Models\Agent> */
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.

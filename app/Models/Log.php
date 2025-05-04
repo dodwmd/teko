@@ -2,14 +2,34 @@
 
 namespace App\Models;
 
+use App\Traits\DocBlockHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
+/**
+ * @property int $id
+ * @property string|null $channel
+ * @property string $level
+ * @property string $message
+ * @property array|null $context
+ * @property int|null $agent_id
+ * @property int|null $repository_id
+ * @property int|null $task_id
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ * @property-read \App\Models\Task|null $task
+ * @property-read \App\Models\Repository|null $repository
+ * @property-read \App\Models\Agent|null $agent
+ * 
+ * @uses \Illuminate\Database\Eloquent\Factories\HasFactory<\App\Models\Log>
+ */
 class Log extends Model
 {
-    use AsSource, Filterable, HasFactory;
+    use AsSource, Filterable, DocBlockHelpers;
+    /** @use HasFactory<\App\Models\Log> */
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.

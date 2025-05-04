@@ -2,13 +2,31 @@
 
 namespace App\Models;
 
+use App\Traits\DocBlockHelpers;
 use Orchid\Filters\Types\Like;
 use Orchid\Filters\Types\Where;
 use Orchid\Filters\Types\WhereDateStartEnd;
 use Orchid\Platform\Models\User as Authenticatable;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string|null $github_id
+ * @property string|null $google_id
+ * @property string|null $avatar
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ * 
+ * @method static \Illuminate\Database\Eloquent\Builder where($column, $operator = null, $value = null)
+ * @method static bool exists()
+ */
 class User extends Authenticatable
 {
+    use DocBlockHelpers;
+    
     /**
      * The attributes that are mass assignable.
      *

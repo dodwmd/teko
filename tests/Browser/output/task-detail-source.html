@@ -1,0 +1,1034 @@
+<html lang="en" data-controller="html-load" dir="ltr"><head><style type="text/css">.turbo-progress-bar {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #0076ff;
+  z-index: 2147483647;
+  transition:
+    width 300ms ease-out,
+    opacity 150ms 150ms ease-in;
+  transform: translate3d(0, 0, 0);
+}
+</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+    <title>
+        Edit Task: Task for UI Exploration                    - Laravel
+            </title>
+    <meta name="csrf_token" content="8sOeKx0KkvXcwYaxRd2NMGXcmJesJJvezp7RIOtp" id="csrf_token">
+    <meta name="auth" content="1" id="auth">
+            <link rel="stylesheet" type="text/css" href="/vendor/orchid/css/orchid.css?id=5fe52bcaa6d6337cc2328a4b6eebffec" data-turbo-track="reload">
+    
+        <meta name="robots" content="noindex">
+    <meta name="google" content="notranslate">
+    <link href="http://localhost:8000/vendor/orchid/favicon.svg" sizes="any" type="image/svg+xml" id="favicon" rel="icon">
+
+    <!-- For Safari on iOS -->
+    <meta name="theme-color" content="#21252a">
+
+    <meta name="view-transition" content="same-origin">
+    <meta name="turbo-root" content="/admin">
+    <meta name="turbo-refresh-method" content="replace">
+    <meta name="turbo-refresh-scroll" content="reset">
+    <meta name="turbo-prefetch" content="true">
+    <meta name="dashboard-prefix" content="/admin">
+
+    
+            <script src="/vendor/orchid/js/manifest.js?id=a0cf0beb2ef26ed536c04092e6558f2a" data-turbo-track="reload" type="text/javascript"></script>
+            <script src="/vendor/orchid/js/vendor.js?id=54146473cb4502c6d8a726b7d3048bfc" data-turbo-track="reload" type="text/javascript"></script>
+            <script src="/vendor/orchid/js/orchid.js?id=586757a8b108298b24d0bb7fd74f0acf" data-turbo-track="reload" type="text/javascript"></script><style type="text/css">.chart-container{position:relative;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif}.chart-container .axis,.chart-container .chart-label{fill:#555b51}.chart-container .axis line,.chart-container .chart-label line{stroke:#dadada}.chart-container .dataset-units circle{stroke:#fff;stroke-width:2}.chart-container .dataset-units path{fill:none;stroke-opacity:1;stroke-width:2px}.chart-container .dataset-path{stroke-width:2px}.chart-container .path-group path{fill:none;stroke-opacity:1;stroke-width:2px}.chart-container line.dashed{stroke-dasharray:5,3}.chart-container .axis-line .specific-value{text-anchor:start}.chart-container .axis-line .y-line{text-anchor:end}.chart-container .axis-line .x-line{text-anchor:middle}.chart-container .legend-dataset-text{fill:#6c7680;font-weight:600}.graph-svg-tip{position:absolute;z-index:99999;padding:10px;font-size:12px;color:#959da5;text-align:center;background:rgba(0,0,0,.8);border-radius:3px}.graph-svg-tip ol,.graph-svg-tip ul{padding-left:0;display:-webkit-box;display:-ms-flexbox;display:flex}.graph-svg-tip ul.data-point-list li{min-width:90px;-webkit-box-flex:1;-ms-flex:1;flex:1;font-weight:600}.graph-svg-tip strong{color:#dfe2e5;font-weight:600}.graph-svg-tip .svg-pointer{position:absolute;height:5px;margin:0 0 0 -5px;content:" ";border:5px solid transparent;border-top-color:rgba(0,0,0,.8)}.graph-svg-tip.comparison{padding:0;text-align:left;pointer-events:none}.graph-svg-tip.comparison .title{display:block;padding:10px;margin:0;font-weight:600;line-height:1;pointer-events:none}.graph-svg-tip.comparison ul{margin:0;white-space:nowrap;list-style:none}.graph-svg-tip.comparison li{display:inline-block;padding:5px 10px}</style>
+    
+    
+    
+            <script src="components/google-analytics" defer="" type="text/javascript" data-turbo-track="reload"></script>
+    
+    <style id="codeflask-style">
+  .codeflask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .codeflask, .codeflask * {
+    box-sizing: border-box;
+  }
+
+  .codeflask__pre {
+    pointer-events: none;
+    z-index: 3;
+    overflow: hidden;
+  }
+
+  .codeflask__textarea {
+    background: none;
+    border: none;
+    color: #fff;
+    z-index: 1;
+    resize: none;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    -webkit-appearance: pre;
+    caret-color: #111;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+  }
+
+  .codeflask--has-line-numbers .codeflask__textarea {
+    width: calc(100% - 40px);
+  }
+
+  .codeflask__code {
+    display: block;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    overflow: hidden;
+  }
+
+  .codeflask__flatten {
+    padding: 10px;
+    font-size: 13px;
+    line-height: 20px;
+    white-space: pre;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: auto;
+    margin: 0 !important;
+    outline: none;
+    text-align: left;
+  }
+
+  .codeflask--has-line-numbers .codeflask__flatten {
+    width: calc(100% - 40px);
+    left: 40px;
+  }
+
+  .codeflask__line-highlight {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: rgba(0,0,0,0.1);
+    z-index: 1;
+  }
+
+  .codeflask__lines {
+    padding: 10px 4px;
+    font-size: 12px;
+    line-height: 20px;
+    font-family: 'Cousine', monospace;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    text-align: right;
+    color: #999;
+    z-index: 2;
+  }
+
+  .codeflask__lines__line {
+    display: block;
+  }
+
+  .codeflask.codeflask--has-line-numbers {
+    padding-left: 40px;
+  }
+
+  .codeflask.codeflask--has-line-numbers:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    background: #eee;
+    z-index: 1;
+  }
+</style><style id="theme-default">
+.codeflask {
+  background: #fff;
+  color: #4f559c;
+}
+
+.codeflask .token.punctuation {
+  color: #4a4a4a;
+}
+
+.codeflask .token.keyword {
+  color: #8500ff;
+}
+
+.codeflask .token.operator {
+  color: #ff5598;
+}
+
+.codeflask .token.string {
+  color: #41ad8f;
+}
+
+.codeflask .token.comment {
+  color: #9badb7;
+}
+
+.codeflask .token.function {
+  color: #8500ff;
+}
+
+.codeflask .token.boolean {
+  color: #8500ff;
+}
+
+.codeflask .token.number {
+  color: #8500ff;
+}
+
+.codeflask .token.selector {
+  color: #8500ff;
+}
+
+.codeflask .token.property {
+  color: #8500ff;
+}
+
+.codeflask .token.tag {
+  color: #8500ff;
+}
+
+.codeflask .token.attr-value {
+  color: #8500ff;
+}
+</style></head>
+
+<body class="page-platform-task-edit" data-controller="pull-to-refresh">
+
+<div class="container-fluid" data-controller="base">
+
+    <div class="row justify-content-center d-md-flex h-100">
+            <div class="aside col-xs-12 col-xxl-2 bg-dark d-flex flex-column" data-controller="menu">
+        <header class="d-xl-block p-3 mt-xl-4 w-100 d-flex align-items-center">
+            <a href="#" class="header-toggler d-xl-none me-auto order-first d-flex align-items-center lh-1" data-action="click->menu#toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="icon-menu" viewBox="0 0 16 16" path="bs.three-dots-vertical" role="img" componentname="orchid-icon">
+  <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"></path>
+</svg>
+
+
+                <span class="ms-2">Edit Task: Task for UI Exploration</span>
+            </a>
+
+            <a class="header-brand order-last" href="http://localhost:8000/admin/main">
+                <div class="h2 d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="d-inline d-xl-none" viewBox="0 0 16 16" path="bs.house" role="img" componentname="orchid-icon">
+  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"></path>
+</svg>
+
+    
+    <p class="my-0 d-none d-xl-block">
+        Laravel
+    </p>
+</div>
+            </a>
+        </header>
+
+        <nav class="aside-collapse w-100 d-xl-flex flex-column collapse-horizontal" id="headerMenuCollapse">
+
+            <div class="divider my-2"></div>
+
+            <ul class="nav flex-column mb-md-1 mb-auto ps-0 gap-1">
+                <li class="nav-item mt-3 mb-1">
+        <small class="text-muted ms-4 w-100 user-select-none">Teko System</small>
+    </li>
+
+<li class="nav-item ">
+    <a data-turbo="true" class="nav-link d-flex align-items-center collapsed icon-link" title="Teko System" href="http://localhost:8000/admin/dashboard" id="field-dashboard-ec386c6475c3d56c94309cba2de2bc14dbb0810b">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.125rem" height="1.125rem" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="bs.speedometer2" id="field-dashboard-ec386c6475c3d56c94309cba2de2bc14dbb0810b" role="img" componentname="orchid-icon">
+  <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4M3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707M2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10m9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5m.754-4.246a.39.39 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.39.39 0 0 0-.029-.518z"></path>
+  <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A8 8 0 0 1 0 10m8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3"></path>
+</svg>
+
+        
+        <span class="mx-2">Dashboard</span>
+
+            </a>
+</li>
+
+
+
+<li class="nav-item active">
+    <a data-turbo="true" class="nav-link d-flex align-items-center collapsed icon-link" href="http://localhost:8000/admin/tasks" id="field-tasks-876f12ca976c438029ae06940e162e9a30cec3a4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.125rem" height="1.125rem" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="bs.clipboard-check" id="field-tasks-876f12ca976c438029ae06940e162e9a30cec3a4" role="img" componentname="orchid-icon">
+  <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"></path>
+  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"></path>
+  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"></path>
+</svg>
+
+        
+        <span class="mx-2">Tasks</span>
+
+                    <b class="badge rounded-pill bg-info col-auto ms-auto">5</b>
+            </a>
+</li>
+
+
+
+<li class="nav-item ">
+    <a data-turbo="true" class="nav-link d-flex align-items-center collapsed icon-link" href="http://localhost:8000/admin/repositories" id="field-repositories-2e539b72e0b0564d5f4bf1b0dbb3d8f0b1b666e9">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.125rem" height="1.125rem" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="bs.git" id="field-repositories-2e539b72e0b0564d5f4bf1b0dbb3d8f0b1b666e9" role="img" componentname="orchid-icon">
+  <path d="M15.698 7.287 8.712.302a1.03 1.03 0 0 0-1.457 0l-1.45 1.45 1.84 1.84a1.223 1.223 0 0 1 1.55 1.56l1.773 1.774a1.224 1.224 0 0 1 1.267 2.025 1.226 1.226 0 0 1-2.002-1.334L8.58 5.963v4.353a1.226 1.226 0 1 1-1.008-.036V5.887a1.226 1.226 0 0 1-.666-1.608L5.093 2.465l-4.79 4.79a1.03 1.03 0 0 0 0 1.457l6.986 6.986a1.03 1.03 0 0 0 1.457 0l6.953-6.953a1.03 1.03 0 0 0 0-1.457"></path>
+</svg>
+
+        
+        <span class="mx-2">Repositories</span>
+
+            </a>
+</li>
+
+
+    <li class="divider my-2"></li>
+
+<li class="nav-item ">
+    <a data-turbo="true" class="nav-link d-flex align-items-center collapsed icon-link" href="http://localhost:8000/admin/monitoring/errors" id="field-error-monitoring-bb4859c34b083269321bdddf691c121ad3af12dd">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.125rem" height="1.125rem" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="bs.exclamation-triangle" id="field-error-monitoring-bb4859c34b083269321bdddf691c121ad3af12dd" role="img" componentname="orchid-icon">
+  <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z"></path>
+  <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"></path>
+</svg>
+
+        
+        <span class="mx-2">Error Monitoring</span>
+
+                    <b class="badge rounded-pill bg-danger col-auto ms-auto">3</b>
+            </a>
+</li>
+
+
+
+<li class="nav-item mt-3 mb-1">
+        <small class="text-muted ms-4 w-100 user-select-none">Access Controls</small>
+    </li>
+
+<li class="nav-item ">
+    <a data-turbo="true" class="nav-link d-flex align-items-center collapsed icon-link" title="Access Controls" href="http://localhost:8000/admin/users" id="field-users-3d9957d18b1c907897b5d6ba78cf697cb7c4ac67">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.125rem" height="1.125rem" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="bs.people" id="field-users-3d9957d18b1c907897b5d6ba78cf697cb7c4ac67" role="img" componentname="orchid-icon">
+  <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"></path>
+</svg>
+
+        
+        <span class="mx-2">Users</span>
+
+            </a>
+</li>
+
+
+
+<li class="nav-item ">
+    <a data-turbo="true" class="nav-link d-flex align-items-center collapsed icon-link" href="http://localhost:8000/admin/roles" id="field-roles-3b271c8cda689feb68c436d770f2137c77834192">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.125rem" height="1.125rem" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="bs.shield" id="field-roles-3b271c8cda689feb68c436d770f2137c77834192" role="img" componentname="orchid-icon">
+  <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"></path>
+</svg>
+
+        
+        <span class="mx-2">Roles</span>
+
+            </a>
+</li>
+
+
+    <li class="divider my-2"></li>
+
+<li class="nav-item mt-3 mb-1">
+        <small class="text-muted ms-4 w-100 user-select-none">Resources</small>
+    </li>
+
+<li class="nav-item ">
+    <a data-turbo="true" class="nav-link d-flex align-items-center collapsed icon-link" title="Resources" href="https://github.com/dodwmd/teko/wiki" target="_blank" id="field-documentation-0ee85d67af9fdd4f20b7dffbbcd84fa6af66141f">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.125rem" height="1.125rem" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="bs.book" id="field-documentation-0ee85d67af9fdd4f20b7dffbbcd84fa6af66141f" role="img" componentname="orchid-icon">
+  <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"></path>
+</svg>
+
+        
+        <span class="mx-2">Documentation</span>
+
+            </a>
+</li>
+
+
+
+<li class="nav-item ">
+    <a data-turbo="true" class="nav-link d-flex align-items-center collapsed icon-link" href="https://github.com/dodwmd/teko" target="_blank" id="field-github-repository-993d50b6e5e87e7b0f9f98c93c04af3c87e16a69">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.125rem" height="1.125rem" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="bs.github" id="field-github-repository-993d50b6e5e87e7b0f9f98c93c04af3c87e16a69" role="img" componentname="orchid-icon">
+  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"></path>
+</svg>
+
+        
+        <span class="mx-2">GitHub Repository</span>
+
+            </a>
+</li>
+
+
+
+<li class="nav-item ">
+    <a data-turbo="true" class="nav-link d-flex align-items-center collapsed icon-link" href="#menu-version" data-bs-toggle="collapse" id="field-version-2d899ed7824af39a5a9fc6ca4b394ffc9b6b3e88">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.125rem" height="1.125rem" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="bs.code" id="field-version-2d899ed7824af39a5a9fc6ca4b394ffc9b6b3e88" role="img" componentname="orchid-icon">
+  <path d="M5.854 4.854a.5.5 0 1 0-.708-.708l-3.5 3.5a.5.5 0 0 0 0 .708l3.5 3.5a.5.5 0 0 0 .708-.708L2.707 8zm4.292 0a.5.5 0 0 1 .708-.708l3.5 3.5a.5.5 0 0 1 0 .708l-3.5 3.5a.5.5 0 0 1-.708-.708L13.293 8z"></path>
+</svg>
+
+        
+        <span class="mx-2">Version</span>
+
+                    <b class="badge rounded-pill bg-dark col-auto ms-auto">1.0.0-dev</b>
+            </a>
+</li>
+
+
+
+
+            </ul>
+
+            <div class="h-100 w-100 position-relative to-top cursor d-none d-md-flex mt-md-5" data-action="click->html-load#goToTop" title="Scroll to top">
+                <div class="bottom-left w-100 mb-2 ps-3 overflow-hidden">
+                    <small data-controller="viewport-entrance-toggle" class="scroll-to-top" data-viewport-entrance-toggle-class="show">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="me-2" viewBox="0 0 16 16" path="bs.chevron-up" role="img" componentname="orchid-icon">
+  <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"></path>
+</svg>
+
+                        Scroll to top
+                    </small>
+                </div>
+            </div>
+
+            <footer class="position-sticky bottom-0">
+                <div class="bg-dark position-relative overflow-hidden" style="padding-bottom: 10px;">
+                    <div class="profile-container d-flex align-items-stretch p-3 rounded lh-sm position-relative overflow-hidden">
+
+    <a href="http://localhost:8000/admin/profile" class="col-10 d-flex align-items-center gap-3">
+                    <img src="https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?d=https%3A%2F%2Fraw.githubusercontent.com%2Forchidsoftware%2F.github%2Fmain%2Fweb%2Favatars%2Fgravatar.png" alt="Admin User" class="thumb-sm avatar b" type="image/*">
+        
+        <small class="d-flex flex-column lh-1 col-9">
+            <span class="text-ellipsis text-white">Admin User</span>
+            <span class="text-ellipsis text-muted">Admin</span>
+        </small>
+    </a>
+
+    <a href="http://localhost:8000/admin/notifications" class="m-auto d-flex align-items-center btn btn-link position-relative px-1 py-0 h-100" data-controller="notification" data-notification-count="0" data-notification-url="http://localhost:8000/admin/api/notifications" data-notification-method="post" data-notification-interval="60">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16" path="bs.bell" role="img" componentname="orchid-icon">
+  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"></path>
+</svg>
+
+
+    <template id="notification-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="0.4em" height="0.4em" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16" path="bs.circle-fill" role="img" componentname="orchid-icon">
+  <circle cx="8" cy="8" r="8"></circle>
+</svg>
+
+    </template>
+
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger lh-1 aspect-ratio-1x1" data-notification-target="badge"></span>
+</a>
+
+
+</div>
+                </div>
+            </footer>
+        </nav>
+    </div>
+
+        <div class="col-xxl col-xl-9 col-12 mx-auto">
+            
+    <div class="container-xl p-0 h-100">
+        <div class="workspace workspace-limit pt-3 pt-md-4 mb-4 mb-md-0 d-flex flex-column h-100">
+                        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb px-4 mb-2">
+                <li class="breadcrumb-item">
+            <a href="http://localhost:8000/admin/dashboard">
+                Dashboard
+            </a>
+        </li>
+                <li class="breadcrumb-item">
+            <a href="http://localhost:8000/admin/tasks">
+                Tasks
+            </a>
+        </li>
+                <li class="breadcrumb-item active">
+            Edit Task
+        </li>
+                </ol>
+        </nav>
+    
+    <div class="order-last order-md-0 command-bar-wrapper">
+        <div class="  layout d-md-flex align-items-center">
+            <header class="d-none d-md-block col-xs-12 col-md p-0 me-3">
+                <h1 class="m-0 fw-light h3 text-body-emphasis">Edit Task: Task for UI Exploration</h1>
+                <small class="text-muted" title="View and edit task details">View and edit task details</small>
+            </header>
+            <nav class="col-xs-12 col-md-auto ms-md-auto p-0">
+                <ul class="nav command-bar justify-content-sm-end justify-content-start d-flex align-items-center gap-2 flex-wrap-reverse flex-sm-nowrap">
+                                <li>
+            <div class="form-group mb-0">
+
+    
+    <button data-controller="button" data-turbo="true" class="btn btn-link icon-link" type="submit" form="post-form" formaction="http://localhost:8000/admin/tasks/1/save" id="field-save-b935861473f9938c5d32353520cc09a635f637cc">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="save" id="field-save-b935861473f9938c5d32353520cc09a635f637cc" role="img" componentname="orchid-icon">
+  <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z"></path>
+</svg>
+
+        
+        Save
+    </button>
+
+    
+    </div>
+
+        </li>
+            <li>
+            <div class="form-group mb-0">
+
+    
+    <button data-controller="button" data-turbo="true" class="btn btn-link icon-link" type="submit" form="post-form" formaction="http://localhost:8000/admin/tasks/1/cancel" id="field-cancel-task-8f686ea243e5875663936441780c756e84839b6e">
+
+                            
+        Cancel Task
+    </button>
+
+    
+    </div>
+
+        </li>
+            <li>
+            <div class="form-group mb-0">
+
+    
+    <button data-controller="button" data-turbo="true" class="btn btn-link icon-link" type="submit" form="post-form" formaction="http://localhost:8000/admin/tasks/1/remove" id="field-delete-a11237f81b2aee5d737d5faf197ded96ec4aba8e">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="overflow-visible" viewBox="0 0 16 16" path="trash" id="field-delete-a11237f81b2aee5d737d5faf197ded96ec4aba8e" role="img" componentname="orchid-icon">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+</svg>
+
+        
+        Delete
+    </button>
+
+    
+    </div>
+
+        </li>
+                    </ul>
+            </nav>
+        </div>
+    </div>
+
+            <div id="modals-container">
+            </div>
+
+    <form id="post-form" class="mb-md-4 h-100" method="post" enctype="multipart/form-data" data-controller="form" data-form-need-prevents-form-abandonment-value="true" data-form-failed-validation-message-value="Please check the entered data, it may be necessary to specify in other languages." data-action="keypress->form#disableKey
+                      turbo:before-fetch-request@document->form#confirmCancel
+                      beforeunload@window->form#confirmCancel
+                      change->form#changed
+                      form#submit" novalidate="">
+        <div class="mb-3" data-controller="tabs" data-tabs-slug="b9d59049534570e944e36b6d951c76cf437eea70" data-tabs-active-tab="">
+    <div class="nav-tabs-alt">
+        <ul class="nav nav-tabs nav-tabs-scroll-bar" role="tablist">
+                            <li class="nav-item" role="presentation">
+                    <a class="nav-link active" data-action="tabs#setActiveTab" href="#tab-d204ab71c138f13c1958a4ab649354b9214f7623" data-bs-target="#tab-d204ab71c138f13c1958a4ab649354b9214f7623" id="button-tab-d204ab71c138f13c1958a4ab649354b9214f7623" aria-selected="true" role="tab" data-bs-toggle="tab">
+                        General
+                    </a>
+                </li>
+                            <li class="nav-item" role="presentation">
+                    <a class="nav-link" data-action="tabs#setActiveTab" href="#tab-43bdbab5a30370057d50b7b21f3c042a4d84d7db" data-bs-target="#tab-43bdbab5a30370057d50b7b21f3c042a4d84d7db" id="button-tab-43bdbab5a30370057d50b7b21f3c042a4d84d7db" aria-selected="false" role="tab" data-bs-toggle="tab" tabindex="-1">
+                        Metadata
+                    </a>
+                </li>
+                            <li class="nav-item" role="presentation">
+                    <a class="nav-link" data-action="tabs#setActiveTab" href="#tab-e61c01b35e3b25bfaeaf2a140facab0db6a32695" data-bs-target="#tab-e61c01b35e3b25bfaeaf2a140facab0db6a32695" id="button-tab-e61c01b35e3b25bfaeaf2a140facab0db6a32695" aria-selected="false" role="tab" data-bs-toggle="tab" tabindex="-1">
+                        Comments
+                    </a>
+                </li>
+                    </ul>
+    </div>
+
+    <section class="tab-content">
+                    <div role="tabpanel" id="tab-d204ab71c138f13c1958a4ab649354b9214f7623" class="tab-pane active" aria-labelledby="button-tab-d204ab71c138f13c1958a4ab649354b9214f7623">
+                                    <fieldset class="mb-3">
+
+    
+    <div class="bg-white rounded shadow-sm p-4 py-4 d-flex flex-column gap-3">
+        <div class="form-group">
+            <label for="field-tasktitle-ae5b1ef799aa4ede7764a61503e92a430945cc9e" class="form-label">Title
+                            <sup class="text-danger">*</sup>
+            
+                    </label>
+    
+    <div data-controller="input" data-input-mask="">
+        <input class="form-control" name="task[title]" title="Title" placeholder="Task title" required="required" value="Task for UI Exploration" id="field-tasktitle-ae5b1ef799aa4ede7764a61503e92a430945cc9e">
+    </div>
+
+    
+    </div>
+
+<div class="form-group">
+            <label for="field-taskdescription-a786d711fecfff689af63a56d9ad6f6cf6f055f8" class="form-label">Description
+            
+                    </label>
+    
+    <textarea class="form-control no-resize" name="task[description]" title="Description" rows="5" placeholder="Task description" id="field-taskdescription-a786d711fecfff689af63a56d9ad6f6cf6f055f8">Qui nostrum illum temporibus et et dolores possimus. Aperiam iusto quasi vel. Nesciunt velit praesentium perspiciatis iusto nostrum quaerat id vitae.</textarea>
+
+    
+    </div>
+
+<div class="form-group">
+            <label for="field-taskrepository-id-b36652177d47b078213417594d7685abf6fb824e-ts-control" class="form-label" id="field-taskrepository-id-b36652177d47b078213417594d7685abf6fb824e-ts-label">Repository
+            
+                    </label>
+    
+    <div data-controller="select" data-select-placeholder="" data-select-allow-empty="1" data-select-message-notfound="No results found" data-select-allow-add="false" data-select-message-add="Add">
+        <select class="form-control tomselected ts-hidden-accessible" name="task[repository_id]" title="Repository" id="field-taskrepository-id-b36652177d47b078213417594d7685abf6fb824e" tabindex="-1">
+                            <option value="">-- Select Repository --</option>
+                            
+                            <option value="2">Emmerich, O'Hara and Lindgren Repo</option>
+                    <option value="1" selected="">Test Repository</option></select><div class="ts-wrapper form-control single plugin-change_listener input-hidden full has-items preloaded"><div class="ts-control"><div data-value="1" class="item" data-ts-item="">Test Repository</div><input type="text" autocomplete="off" size="1" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="field-taskrepository-id-b36652177d47b078213417594d7685abf6fb824e-ts-dropdown" id="field-taskrepository-id-b36652177d47b078213417594d7685abf6fb824e-ts-control" aria-labelledby="field-taskrepository-id-b36652177d47b078213417594d7685abf6fb824e-ts-label"></div><div class="ts-dropdown single plugin-change_listener" style="display: none;"><div role="listbox" tabindex="-1" class="ts-dropdown-content" id="field-taskrepository-id-b36652177d47b078213417594d7685abf6fb824e-ts-dropdown" aria-labelledby="field-taskrepository-id-b36652177d47b078213417594d7685abf6fb824e-ts-label"></div></div></div>
+    </div>
+
+    
+            <small class="form-text text-muted">Select the repository this task is associated with</small>
+    </div>
+
+<div class="form-group">
+            <label for="field-tasktype-8edee42281bd313ef100f69a7288e7f365fbd75d-ts-control" class="form-label" id="field-tasktype-8edee42281bd313ef100f69a7288e7f365fbd75d-ts-label">Type
+                            <sup class="text-danger">*</sup>
+            
+                    </label>
+    
+    <div data-controller="select" data-select-placeholder="" data-select-allow-empty="" data-select-message-notfound="No results found" data-select-allow-add="false" data-select-message-add="Add">
+        <select class="form-control tomselected ts-hidden-accessible" name="task[type]" title="Type" required="required" id="field-tasktype-8edee42281bd313ef100f69a7288e7f365fbd75d" tabindex="-1">
+                            
+                            <option value="review">Code Review</option>
+                            <option value="refinement">Story Refinement</option>
+                            <option value="documentation">Documentation</option>
+                            <option value="testing">Testing</option>
+                    <option value="implementation">Implementation</option></select><div class="ts-wrapper form-control single plugin-change_listener input-hidden required full has-items preloaded"><div class="ts-control"><div data-value="implementation" class="item" data-ts-item="">Implementation</div><input type="text" autocomplete="off" size="1" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="field-tasktype-8edee42281bd313ef100f69a7288e7f365fbd75d-ts-dropdown" id="field-tasktype-8edee42281bd313ef100f69a7288e7f365fbd75d-ts-control" aria-labelledby="field-tasktype-8edee42281bd313ef100f69a7288e7f365fbd75d-ts-label"></div><div class="ts-dropdown single plugin-change_listener" style="display: none;"><div role="listbox" tabindex="-1" class="ts-dropdown-content" id="field-tasktype-8edee42281bd313ef100f69a7288e7f365fbd75d-ts-dropdown" aria-labelledby="field-tasktype-8edee42281bd313ef100f69a7288e7f365fbd75d-ts-label"></div></div></div>
+    </div>
+
+    
+            <small class="form-text text-muted">Type of task to be performed</small>
+    </div>
+
+<div class="form-group">
+            <label for="field-taskstatus-88a6fdbeece075d237ac14542d90978170444d2a-ts-control" class="form-label" id="field-taskstatus-88a6fdbeece075d237ac14542d90978170444d2a-ts-label">Status
+                            <sup class="text-danger">*</sup>
+            
+                    </label>
+    
+    <div data-controller="select" data-select-placeholder="" data-select-allow-empty="" data-select-message-notfound="No results found" data-select-allow-add="false" data-select-message-add="Add">
+        <select class="form-control tomselected ts-hidden-accessible" name="task[status]" title="Status" required="required" id="field-taskstatus-88a6fdbeece075d237ac14542d90978170444d2a" tabindex="-1">
+                            <option value="pending">Pending</option>
+                            
+                            <option value="completed">Completed</option>
+                            <option value="failed">Failed</option>
+                            <option value="cancelled">Cancelled</option>
+                    <option value="in_progress" selected="">In Progress</option></select><div class="ts-wrapper form-control single plugin-change_listener input-hidden required full has-items preloaded"><div class="ts-control"><div data-value="in_progress" class="item" data-ts-item="">In Progress</div><input type="text" autocomplete="off" size="1" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="field-taskstatus-88a6fdbeece075d237ac14542d90978170444d2a-ts-dropdown" id="field-taskstatus-88a6fdbeece075d237ac14542d90978170444d2a-ts-control" aria-labelledby="field-taskstatus-88a6fdbeece075d237ac14542d90978170444d2a-ts-label"></div><div class="ts-dropdown single plugin-change_listener" style="display: none;"><div role="listbox" tabindex="-1" class="ts-dropdown-content" id="field-taskstatus-88a6fdbeece075d237ac14542d90978170444d2a-ts-dropdown" aria-labelledby="field-taskstatus-88a6fdbeece075d237ac14542d90978170444d2a-ts-label"></div></div></div>
+    </div>
+
+    
+            <small class="form-text text-muted">Current status of the task</small>
+    </div>
+
+<div class="form-group">
+            <label for="field-taskprovider-e269a181d0ec8e6572e5a59f43cbf7b5b1031938" class="form-label">Provider
+            
+                    </label>
+    
+    <div data-controller="input" data-input-mask="">
+        <input class="form-control" name="task[provider]" title="Provider" placeholder="e.g., GitHub, Jira" value="github" id="field-taskprovider-e269a181d0ec8e6572e5a59f43cbf7b5b1031938">
+    </div>
+
+    
+            <small class="form-text text-muted">Source system where the task originated</small>
+    </div>
+
+<div class="form-group">
+            <label for="field-taskexternal-id-3bacc39cd370bc640fa54c26f83377c478600b24" class="form-label">External ID
+            
+                    </label>
+    
+    <div data-controller="input" data-input-mask="">
+        <input class="form-control" name="task[external_id]" title="External ID" placeholder="e.g., JIRA-123, #456" value="SYV-411" id="field-taskexternal-id-3bacc39cd370bc640fa54c26f83377c478600b24">
+    </div>
+
+    
+            <small class="form-text text-muted">ID of the task in the external system</small>
+    </div>
+
+<div class="form-group">
+            <label for="field-taskexternal-url-a69f84b62b422587e0053b3131f63b80279453e2" class="form-label">External URL
+            
+                    </label>
+    
+    <div data-controller="input" data-input-mask="">
+        <input class="form-control" name="task[external_url]" title="External URL" type="url" placeholder="https://..." value="http://www.borer.com/" id="field-taskexternal-url-a69f84b62b422587e0053b3131f63b80279453e2">
+    </div>
+
+    
+            <small class="form-text text-muted">Link to the task in the external system</small>
+    </div>
+
+<div class="form-group">
+            <label for="field-taskbranch-name-62ec48efb295730ee1df61b197805ef3cfc99f64" class="form-label">Branch Name
+            
+                    </label>
+    
+    <div data-controller="input" data-input-mask="">
+        <input class="form-control" name="task[branch_name]" title="Branch Name" placeholder="e.g., feature/implement-login" value="feature/ullam-hic-aut-quasi-vel-et-nihil" id="field-taskbranch-name-62ec48efb295730ee1df61b197805ef3cfc99f64">
+    </div>
+
+    
+            <small class="form-text text-muted">Branch where the task is being implemented</small>
+    </div>
+
+<div class="form-group">
+            <label for="field-taskpull-request-url-301520100befdb6c47bf38d22a61407440cd68d0" class="form-label">Pull Request URL
+            
+                    </label>
+    
+    <div data-controller="input" data-input-mask="">
+        <input class="form-control" name="task[pull_request_url]" title="Pull Request URL" type="url" placeholder="https://github.com/..." id="field-taskpull-request-url-301520100befdb6c47bf38d22a61407440cd68d0">
+    </div>
+
+    
+            <small class="form-text text-muted">Link to the pull request for this task</small>
+    </div>
+
+
+    </div>
+</fieldset>
+
+                            </div>
+                    <div role="tabpanel" id="tab-43bdbab5a30370057d50b7b21f3c042a4d84d7db" class="tab-pane" aria-labelledby="button-tab-43bdbab5a30370057d50b7b21f3c042a4d84d7db">
+                                    <fieldset class="mb-3">
+
+    
+    <div class="bg-white rounded shadow-sm p-4 py-4 d-flex flex-column gap-3">
+        <div class="form-group">
+            <label for="field-taskstarted-at-ee45baed017778c7c86000a3a086d15a97faeb20" class="form-label">Started At
+            
+                    </label>
+    
+    <div data-controller="datetime" class="input-group" data-datetime-enable-time="false" data-datetime-time_24hr="false" data-datetime-allow-input="true" data-datetime-date-format="Y-m-d H:i:s" data-datetime-no-calendar="false" data-datetime-minute-increment="5" data-datetime-hour-increment="1" data-datetime-static="false" data-datetime-disable-mobile="false" data-datetime-inline="false" data-datetime-position="auto auto" data-datetime-shorthand-current-month="false" data-datetime-alt-input="false" data-datetime-show-months="1">
+        <input type="text" placeholder="Select Date..." class="form-control flatpickr-input" data-datetime-enable-time="false" data-datetime-time_24hr="false" data-datetime-allow-input="true" data-datetime-date-format="Y-m-d H:i:s" data-datetime-no-calendar="false" data-datetime-minute-increment="5" data-datetime-hour-increment="1" data-datetime-static="false" data-datetime-disable-mobile="false" data-datetime-inline="false" data-datetime-position="auto auto" data-datetime-shorthand-current-month="false" data-datetime-alt-input="false" data-datetime-show-months="1" name="task[started_at]" title="Started At" value="2025-04-24 16:07:06" id="field-taskstarted-at-ee45baed017778c7c86000a3a086d15a97faeb20" autocomplete="off" data-datetime-target="instance">
+
+        
+                </div>
+
+    
+            <small class="form-text text-muted">When the task was started</small>
+    </div>
+
+
+
+
+
+<div class="form-group">
+            <label for="field-taskcompleted-at-a5c3a7242ce5a678bf0c2f6dfec8109ffcd404e8" class="form-label">Completed At
+            
+                    </label>
+    
+    <div data-controller="datetime" class="input-group" data-datetime-enable-time="false" data-datetime-time_24hr="false" data-datetime-allow-input="true" data-datetime-date-format="Y-m-d H:i:s" data-datetime-no-calendar="false" data-datetime-minute-increment="5" data-datetime-hour-increment="1" data-datetime-static="false" data-datetime-disable-mobile="false" data-datetime-inline="false" data-datetime-position="auto auto" data-datetime-shorthand-current-month="false" data-datetime-alt-input="false" data-datetime-show-months="1">
+        <input type="text" placeholder="Select Date..." class="form-control flatpickr-input" data-datetime-enable-time="false" data-datetime-time_24hr="false" data-datetime-allow-input="true" data-datetime-date-format="Y-m-d H:i:s" data-datetime-no-calendar="false" data-datetime-minute-increment="5" data-datetime-hour-increment="1" data-datetime-static="false" data-datetime-disable-mobile="false" data-datetime-inline="false" data-datetime-position="auto auto" data-datetime-shorthand-current-month="false" data-datetime-alt-input="false" data-datetime-show-months="1" name="task[completed_at]" title="Completed At" id="field-taskcompleted-at-a5c3a7242ce5a678bf0c2f6dfec8109ffcd404e8" autocomplete="off" data-datetime-target="instance">
+
+        
+                </div>
+
+    
+            <small class="form-text text-muted">When the task was completed</small>
+    </div>
+
+
+
+
+
+<div class="form-group">
+            <label for="field-taskmetadata-bb41fda38f33b1bf3b6770bf5f334d4ba39ec8f6" class="form-label">Metadata
+            
+                    </label>
+    
+    <div data-controller="code" data-code-language="json" data-code-line-numbers="1" data-code-default-theme="1">
+        <div class="code border position-relative w-100" style="min-height: 300px"><div class="codeflask codeflask--has-line-numbers"><textarea class="codeflask__textarea codeflask__flatten" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea><pre class="codeflask__pre codeflask__flatten  language-json"><code class="codeflask__code  language-json">"[]"</code></pre><div class="codeflask__lines"><span class="codeflask__lines__line">1</span></div></div></div>
+        <input type="hidden" class="form-control" language="json" linenumbers="lineNumbers" height="300px" name="task[metadata]" title="Metadata" value="&quot;[]&quot;" id="field-taskmetadata-bb41fda38f33b1bf3b6770bf5f334d4ba39ec8f6">
+    </div>
+
+    
+            <small class="form-text text-muted">Additional task metadata in JSON format</small>
+    </div>
+
+
+    </div>
+</fieldset>
+
+                            </div>
+                    <div role="tabpanel" id="tab-e61c01b35e3b25bfaeaf2a140facab0db6a32695" class="tab-pane" aria-labelledby="button-tab-e61c01b35e3b25bfaeaf2a140facab0db6a32695">
+                                    <div id="comments-section" class="bg-white rounded shadow-sm p-4 mb-4">
+    <h5 class="mb-4">Comments</h5>
+    
+    
+    <div class="comments-list mb-4" data-commentable-id="1" data-commentable-type="App\Models\Task">
+        
+        <div class="text-center py-3 loading-indicator">
+            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <span class="ms-2">Loading comments...</span>
+        </div>
+    </div>
+    
+    
+    <div class="comment-form">
+        
+            <input type="hidden" name="commentable_id" value="1">
+            <input type="hidden" name="commentable_type" value="App\Models\Task">
+            <input type="hidden" name="parent_id" value="" id="reply-parent-id">
+            
+            <div class="mb-3">
+                <label for="comment-content" class="form-label visually-hidden">Comment</label>
+                <textarea class="form-control" id="comment-content" name="content" rows="3" placeholder="Add a comment..."></textarea>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="reply-indicator d-none">
+                    <span class="badge bg-light text-dark">Replying to: <span class="reply-to-user"></span></span>
+                    <button type="button" class="btn btn-sm btn-link p-0 ms-2 cancel-reply">Cancel</button>
+                </div>
+                <div class="sync-indicator text-muted small">
+                                        <i class="icon-refresh"></i> Comments will be synced with 
+                    <a href="http://www.borer.com/" target="_blank">
+                        #SYV-411
+                    </a>
+                                    </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="icon-paper-plane"></i> Submit
+                </button>
+            </div>
+        
+    </div>
+</div>
+
+
+<template id="comment-template">
+    <div class="comment mb-4" data-comment-id="">
+        <div class="d-flex">
+            <div class="flex-shrink-0">
+                <div class="avatar rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <span class="user-initials"></span>
+                </div>
+            </div>
+            <div class="flex-grow-1 ms-3">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="mb-0 user-name"></h6>
+                        <small class="text-muted comment-time"></small>
+                    </div>
+                    <div class="dropdown comment-actions">
+                        <button class="btn btn-sm btn-link dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">
+                            <i class="icon-options-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><button class="dropdown-item reply-action" type="button">Reply</button></li>
+                            <li><button class="dropdown-item edit-action" type="button">Edit</button></li>
+                            <li><button class="dropdown-item delete-action" type="button">Delete</button></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="comment-content mt-2"></div>
+                <div class="comment-edit-form mt-2 d-none">
+                    <form>
+                        <textarea class="form-control edit-content mb-2" rows="3"></textarea>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-sm btn-link cancel-edit">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary ms-2 save-edit">Save</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="mt-2">
+                    <button class="btn btn-sm btn-link p-0 reply-btn">Reply</button>
+                    <span class="text-muted mx-1 small">•</span>
+                    <span class="sync-badge"></span>
+                </div>
+                <div class="replies mt-3"></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template id="reply-template">
+    <div class="reply mb-3" data-comment-id="">
+        <div class="d-flex">
+            <div class="flex-shrink-0">
+                <div class="avatar rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                    <span class="user-initials"></span>
+                </div>
+            </div>
+            <div class="flex-grow-1 ms-2">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="mb-0 small user-name"></h6>
+                        <small class="text-muted comment-time"></small>
+                    </div>
+                    <div class="dropdown reply-actions">
+                        <button class="btn btn-sm btn-link dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">
+                            <i class="icon-options-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><button class="dropdown-item edit-action" type="button">Edit</button></li>
+                            <li><button class="dropdown-item delete-action" type="button">Delete</button></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="comment-content mt-1 small"></div>
+                <div class="comment-edit-form mt-2 d-none">
+                    <form>
+                        <textarea class="form-control edit-content mb-2" rows="2"></textarea>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-sm btn-link cancel-edit">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary ms-2 save-edit">Save</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="mt-1">
+                    <span class="sync-badge"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+                            </div>
+            </section>
+</div></form>
+
+    
+        <input type="hidden" name="_token" value="8sOeKx0KkvXcwYaxRd2NMGXcmJesJJvezp7RIOtp" autocomplete="off">        <div class="modal fade" id="confirm-dialog" data-controller="confirm" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-md-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-body-emphasis fw-light">
+                    Are you sure?
+                </h4>
+                <button type="button" class="btn-close" title="Close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="p-4" data-confirm-target="message">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+
+                <div data-confirm-target="button">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <div data-controller="filter">
+        <form id="filters" autocomplete="off" data-action="filter#submit" data-form-need-prevents-form-abandonment-value="false"></form>
+    </div>
+
+    <input type="hidden" name="_state" id="screen-state" value="eyJpdiI6InNiMHEzTjJuL00rOXpuZmVMNTFPMkE9PSIsInZhbHVlIjoid2dsL2pENHdwbXU0MDdPV3BheUV4eHNxVzZDY0tOM2NLZEtHcE1STC9pcE4wOWVhT2ZDR3I5ZzZDNDlTVTBhL3ZGWkk3OC9VbnBsbktwTXBISE82Q0xYUGRxVU4rR1AvRTFnOEw2K0NqdUoraUVWNG1UenBTV25iYlQ2Rk1QbFJRNE40bTk5NDYvSnVYSHpzRWdMbHgyeElSTG5oMEFncnVhYWZkaFZYak5LSEpkS2JmTGJyRUU5OGZ0MEVpbkxvcWlIRUMyeDM1cFlhUnIrOWNTL2J3U3o3SzVid1FURGRicTBCdUhpRkpQelVWQXkvdUVjQk44Yi8yazZQMWw3U3JraUVhZHBPVFkrNUFjeDFEWVJpWTcrdjJjZmN1NUc4WEo5WGFJdjF1T1ZTNzFLQVBBb2YwTGdBaGZXT0JZSjJUVmhYTzF5Y0xuaUtBR0cvRUtJcURuYWxvRm5oVXU2TFMrYWMraWJtYjZIUyt5ZU13ejdvbHkwbjEvcmNBUXBnbmlLNTdIRlVUY0V6bkFoUm13Y2ZJaTB2TkNEYkwwNE5KcExWQitPK2lWMnpLNlFrSVJmbmdpRmc5Tmk4RXd5ekF2ZVBTRTdObUhGRHAzR1ZCRTkyZ2tUbXNTQ1NhMVNJUGZjVzVmWE82aXdDVkYxYlhFNGc2TzdaZ1RNTU9EWk1tU3hxRjlObko0SUhNdDdvTDh5UGxmanFvQ3BlcUFLOVVXVXAybDA0eUd5N3VzTmZDVnozSVdlZ3QxQ2NHVVUwa0JWOENkUEN5amlIcFB3eHhZRnBPYlNNQWJtNHpkc04rMytETUZ0dG1Cb295WE8vNVRyUVVsY0NCcWZzemJZSXVqTThDUXdqbWhvT01tN01sbEZCUTRrUHY1OTdsa0o0Sk4ydTZDUW5EbGEvdFFNekxjeGprV211UldrZEQyVEVONHFZcFBIUHpCSEpnaHRtMjZXeEhPMHo1UWNaalcrSWw3SVpiWVhFOTExNDhvRndrbUZoeWp1Mnl4THVKU2hvMTYyTFRGdDBPWStiY3VQaHUxSG5tL3FKcW1WWmlMV1RNZm96QWpmVUVGRnZ1c3hRd2xYMW5YSVA1ZGdwaEE3Q1JzMXFUQXRSSVBJbmN4TEcyTDBLNTc2RTN2YVdTQTl1RlZpYlJnZFFyS0dXWEZLdTRNaSttYUJqS29vSjZuSldTSEF3S2YzaDlrU1hPdngyR2ZPTCtUOGR4c2hQWFJ5MXRLZHdYOW92NDAwT0RKNnhBL2ZOcVJCN3NvdGx1aWZRakFkM2dQSkxIL1U0TjRIWFJKRS80aGRnUGVacEZSUEg5RGVpbE42V3B1cUl2MWZ0ajFqcFVWYlloK2lVMVZKMzlQUDRkS0o2ZHFCUzk1UzVjY1JscGJYUjV3N2d2ODBKbm1hQ1dudmM3L3lRNi9jd1pJdlpMZGw2VzZETllWOUtacEZYb25HNDVMNzZtTzEwOHAxQ0sxQVJBTVpFMWVSNnBxSzVyd0Iwd083czJXM1JGbG91bHZqV0FGUVRQVlJseFJNaG41bmwwaTM0ZGZRQldnTVdValhvNUNBNnJuaCt1T1lJOFpTUmc2YU1OdDB2c3IvWk9ka1U3b0hCZElva0NSdVRvclZDVzJzaDFpSUFXVnVMeTgvZ1lSSXR6eGlnQjVYNEFxRkVCaEJHdmZJMWRKeDRWdHJ4NGYvMEEzZk5YZmRBQ2U2Smh3NG8vT25QUkJGSDhEczFNMGMxdnp0eUlESncrZUF3dUpKU2gwc3VIR3lSMWNSeXIyc1E2ZWRIMi9maFMzUnJjZ2xyMzVsOTZBbEQrQXNOV1hXOVo2SWVUV3h4b05ScHAycm9COTZJVWdIQk1TNDhoK1JVT205K1VzMzcrTHZGTWxZQlFmZXlDdG05aXVEaUx3RllKWjN2cUk0d1VPTFZzdnhIL3N6d3FtTWQvSGtiNnNnVzdaZ2pUTTlLdWVXVWJIMG5kN1VjQW85L0dZL0FFYXdJNVQrNlBkcGlIazU0eGhjVVpPSk1mMUZJSzhubllGT3FWTVhxS2l6NCtGalhwV2tNOTRvTUM4M21VNEVXYjJOTDVzN1VUODZzTzNyTVhDbllwcEpKYUl2MVNmYURFOExycGN4OWI4RkI5QmZDbGtkSjRxUWR5UTgvbUIrOEZUTnJTRmh4R3BkSUs0QUZ2cGtVWThtek5qcC9HWGpMbTF0WjZBbWFodkhXbndrRWJ2TDlaK3h5ZStRSnUzUjQxMFJqUnlFaURPWHlTMEJNdXNRU09VYWxWNTNBOTZSTys1dTVRWUVwUW9kREJjVEVvazQrdDgwWDJPaFRLVVJ4cjkxd2RoVnNLUTFOcFpxamV3bitSTUgyQkxLenNvSFN5YXFUMzVrbWk4K0o5QWlSVzRBVzZwNlJ0TklXRkltZHZKK3c1dmk1aEtReEt3U0dpWDN2enBoUUN1bEYxN01PNVZlcGxKQlhZRmpQQVZyNG1IRk00WXpPeGZIbWVCN3hpYTJVZXBrZndUd0dZZWM4N2crTis1WmkrL2d6cHQ5UnFqMk4rTDBwOFd0K1liRDY3dk12T0JwY25yZzBVQ2c4OXRRTTRTZVFDLytjeHFqV1d3VW1WNS9QaE1VYnpaMk1ybG9KWC93WVVKOUFPekdqQmJwSTNZckJFTGJWL1EzTTFRb0VqREsvdU1SeXVaQXlEdzFpcXhWaHhPbDNTNU91Y1hQL1dxYmdlMGJqRHExMXFvb0JTQXFobjkyZll5aXFkSzh6K0VjSUZSTUt4SGkzTlgvMVE5SjdnYWdheVRuK0hkYVFFSE85ZHpGWVArOFBCLzNNaW5XTEovWmtlZkNnY2NwTlkxbXB0Rm5NZGRwd1dIek1DV001YzFVaEJQUC9WdjI5dDZ0eTBzWTlQZlZzRFF0SWxUQUx3NVZNR2NDQWQyZG9CQ3BKM0E2VG4vZEpMZ3ZyK1I2NEp5eG00ejVhNnZFYlhTNXRUeW1DL3ArNHd5clowZ0x5OC9hL3luTElHNEY4c2ZwbURyMjI5RENTTXVUbUpHQjJlWnoycVg0OUs1WDlwb05nYjZKRGVUdFgzQ2lXSjVjbE9oek9tTENWQWlWWnprcEdSMXZiL0ZDSlMweEhSTE1yT3ZUTW9YZk5xV2ZKQU5qeFo5N3BYc0hmeCthWjR0bk5MdDRUV3c4WU5obVRTdnFpL3BJWUFjZitud0JRMUJja0pXMjB3U1RFdkpPSGpndm5YT1E2Snd4djR0VE0zdlZUd09waTZ6b1psK1RYOWwwVVl1bDI3OUZ4SXRlcVdobmdzaXZ0TXF4ems0WEJ3K1oyS3BjNFlqd21Tays2SlV6OWtqNkJNaG5yL2tHWDc1cDFuVC9SSTFTOENYZGtoYW1KUWZpVVJqTHE2RU1tQ29PZ2hsV0t6YkxQZTh3SVlway9HRUJKbG9JcmVPa3BOenQ0UWZwZ0tsc3NjNEE2U0ZvdXFjWEZUVFRxblhHWU9KL3JPTURKcjBURmdNT0w2YW11MGlDKzNlKyttbC9KUjNEU05ydTk4TlI4TWlkYjJxMzkzU2J6aEg4UUdPUVBoZmQwb3hNZzdWTkpXbU9hK2sxNDRhT0tCYUlmZ3pmNlByTEFUdGEyM3ZzWDVUY3ZWbFlCN1pGcGZOSk5GeVZ4a09zbjRZVjFZWjZZZXRhcGM3a2JTbnpLT1BsR3pIdENIUGZHamxndlVRTXE4QWQzVmRPTUNOSzVBcUFhVVJmaVRLV0dUMmxSYnNvMGI0VHZnNDdSRm55MDBJZ3o3Z1N2QlZRSWNHeGFsektMVDg2YlBNczU0bll0ZExmQmtWQ1RjQ1FDOVF1eE41T2hrSVNhSzdScUhDZUUyTjE1cG9wQTZ3TG9NZkczSkF2bHpZeUljVVVya2dnSTQrUmkxSnJaVHZ1dks0RlFvNmNUU3RITmJoSWh5VzNOcko3SzJmbkh6RkhtYlhMeElqMVNsY2ZuR2FxQXBCZG9NMk9DKzM5Sk41Q1doQUVPU2ZqYUZER1JOMWwwMnNwUW5sY2RqQXhVVnphYUJaVE0vZWNQbVR3Q3NtcnVucEtrT3RLeEI4M2EvbDhIYjBNOGlvQnEveXVGOGxjeEhsOU1BNGZjeDZnU3lhOGFsK2ZBanlOajhjK3pwcWtKWXd5OXA2WGg5dU9VenRMdzlCNjVUTVpEUlMzSHRINGhqcHNYMEsvYllxQWwxMGVUVy9SYXV2NVFBV1QvalZpekNHcFNSMmNQOXhrNjhEUzRybVE5MkpQTi9uSkR2d04yZGVMQmU3dGdQcUQ3NzdsK0pKdC9HODdaWHZEQWQxNjZFSmNDK0t6c2JNY3FMazhXdmZpbjhhSmRqN0UxbS9qUXpTWjJnQXZzVWxrWGllajNmWnlDcDVZcjc1YWpmbjlLWThQWlA4UGNGajNaVHhrM09pV2tqLysvbWp6a3lucG9TNDdvOEl1ZEt0ZUFsUElHbDVMU1hmaittMERyRDlha0lXUGpZaTdSV2Fib21VWFM2aC9UV0QvUkU5WU5jTElBV2J0UnVqRGUxY25SUVFjRkN2azFuVGpvMEEzMklEbXJVMXNSbUVINlMzbXhaYS9jMk5qemNqMjFpK1Q1WXd1TUpaYnJ6R3Y4Z1RIVXJFd0Q1YSt3WVdaMXQ0Wis5RlU4Q1B4aGg0L2c0TWpRWFBZejhQMEg3RjBKdnpBd1B4YXF2MThsWDd1ZWxwQ0NoTjdNY0lTMmpaU3ZxNzVydktGaE1zVVZtWkJLWEgvK2ZzNzV6TEhCcTFtZ0F0SFI0ckJQR2VlcUh3Yzl1WDJYaHhKQmpXZ3kySGFQYnZsMUJJdkZTeG9wZ3ZtUk4rZFc5SC8zUlJnS1I0cGpaTzZjM2RvMkFqVEJhYWxSYmw5NC9zdk9LZVNHM2RYVmNCazZ1eSt5NFFicXd1Z1hlOVhPRlRMTFBTaUVnUlBLWHhmNzRTd2Y0UjlicWNtczc5V3hDSXRDQVQ0ZmsvUjFUZmVpKzdWODJ1NUVHYkJiejUzQU4vOCtBd2E0REorWXlLZmdwOStOU1VWSm1RPT0iLCJtYWMiOiIzN2UxZjA3ZWVlZjMwN2Q1MDJlYzQ2N2ZlNzBkZjJlZjQ4YzRkYjA2ODkxN2JjMjc0NjQzNGRiYjA5ODk3OTNmIiwidGFnIjoiIn0=">
+
+            <div class="text-center user-select-none my-4 d-none d-lg-block">
+        <p class="small mb-0">
+            The application code is published under the MIT license. 2016 - 2025<br>
+            <a href="http://github.com/dodwmd/teko" target="_blank" rel="noopener">
+                Version: 14.50.1
+            </a>
+        </p>
+    </div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+
+
+    <div class="toast-wrapper" data-controller="toast">
+    <template id="toast">
+        <div class="toast rounded shadow-sm bg-white mb-3" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000" data-bs-autohide="true">
+            <div class="toast-body p-3 d-flex">
+                <p class="mb-0">
+                    <span class="text-{type}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="me-2" viewBox="0 0 16 16" path="bs.circle-fill" role="img" componentname="orchid-icon">
+  <circle cx="8" cy="8" r="8"></circle>
+</svg>
+
+                    </span>
+                    {message}
+                </p>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </template>
+
+
+    
+</div>
+
+
+</div>
+
+
+<div class="modal fade center-scale" tabindex="-1" data-controller="modal" role="dialog" id="search-modal">
+    <div class="modal-dialog modal-fullscreen-md-down" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header align-items-baseline gap-3">
+                <h4 class="modal-title text-body-emphasis fw-light text-balance text-break" data-modal-target="title">
+                    Search
+                </h4>
+                <button type="button" class="btn-close" title="Close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+
+            <div class="modal-body p-4 py-4">
+                <div data-controller="search-docs">
+                    <div class="position-relative d-flex flex-column gap-3" data-controller="search">
+                        <div class="input-icon">
+                            <input data-action="keyup->search#query blur->search#blur focus->search#focus" data-search-target="query" autocomplete="off" autofocus="" type="text" value="" class="form-control" placeholder="What to search...">
+                            <div class="input-icon-addon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" path="bs.search" role="img" componentname="orchid-icon">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"></path>
+</svg>
+
+                            </div>
+                        </div>
+                        <div id="search-result" class="d-flex flex-column gap-2 list-group">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="flatpickr-calendar animate" tabindex="-1"><div class="flatpickr-months"><span class="flatpickr-prev-month"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17"><g></g><path d="M5.207 8.471l7.146 7.147-0.707 0.707-7.853-7.854 7.854-7.853 0.707 0.707-7.147 7.146z"></path></svg></span><div class="flatpickr-month"><div class="flatpickr-current-month"><select class="flatpickr-monthDropdown-months" aria-label="Month" tabindex="-1"><option class="flatpickr-monthDropdown-month" value="0" tabindex="-1">January</option><option class="flatpickr-monthDropdown-month" value="1" tabindex="-1">February</option><option class="flatpickr-monthDropdown-month" value="2" tabindex="-1">March</option><option class="flatpickr-monthDropdown-month" value="3" tabindex="-1">April</option><option class="flatpickr-monthDropdown-month" value="4" tabindex="-1">May</option><option class="flatpickr-monthDropdown-month" value="5" tabindex="-1">June</option><option class="flatpickr-monthDropdown-month" value="6" tabindex="-1">July</option><option class="flatpickr-monthDropdown-month" value="7" tabindex="-1">August</option><option class="flatpickr-monthDropdown-month" value="8" tabindex="-1">September</option><option class="flatpickr-monthDropdown-month" value="9" tabindex="-1">October</option><option class="flatpickr-monthDropdown-month" value="10" tabindex="-1">November</option><option class="flatpickr-monthDropdown-month" value="11" tabindex="-1">December</option></select><div class="numInputWrapper"><input class="numInput cur-year" type="number" tabindex="-1" aria-label="Year"><span class="arrowUp"></span><span class="arrowDown"></span></div></div></div><span class="flatpickr-next-month"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17"><g></g><path d="M13.207 8.472l-7.854 7.854-0.707-0.707 7.146-7.146-7.146-7.148 0.707-0.707 7.854 7.854z"></path></svg></span></div><div class="flatpickr-innerContainer"><div class="flatpickr-rContainer"><div class="flatpickr-weekdays"><div class="flatpickr-weekdaycontainer">
+      <span class="flatpickr-weekday">
+        Sun</span><span class="flatpickr-weekday">Mon</span><span class="flatpickr-weekday">Tue</span><span class="flatpickr-weekday">Wed</span><span class="flatpickr-weekday">Thu</span><span class="flatpickr-weekday">Fri</span><span class="flatpickr-weekday">Sat
+      </span>
+      </div></div><div class="flatpickr-days" tabindex="-1"><div class="dayContainer"><span class="flatpickr-day prevMonthDay" aria-label="March 30, 2025" tabindex="-1">30</span><span class="flatpickr-day prevMonthDay" aria-label="March 31, 2025" tabindex="-1">31</span><span class="flatpickr-day" aria-label="April 1, 2025" tabindex="-1">1</span><span class="flatpickr-day" aria-label="April 2, 2025" tabindex="-1">2</span><span class="flatpickr-day" aria-label="April 3, 2025" tabindex="-1">3</span><span class="flatpickr-day" aria-label="April 4, 2025" tabindex="-1">4</span><span class="flatpickr-day" aria-label="April 5, 2025" tabindex="-1">5</span><span class="flatpickr-day" aria-label="April 6, 2025" tabindex="-1">6</span><span class="flatpickr-day" aria-label="April 7, 2025" tabindex="-1">7</span><span class="flatpickr-day" aria-label="April 8, 2025" tabindex="-1">8</span><span class="flatpickr-day" aria-label="April 9, 2025" tabindex="-1">9</span><span class="flatpickr-day" aria-label="April 10, 2025" tabindex="-1">10</span><span class="flatpickr-day" aria-label="April 11, 2025" tabindex="-1">11</span><span class="flatpickr-day" aria-label="April 12, 2025" tabindex="-1">12</span><span class="flatpickr-day" aria-label="April 13, 2025" tabindex="-1">13</span><span class="flatpickr-day" aria-label="April 14, 2025" tabindex="-1">14</span><span class="flatpickr-day" aria-label="April 15, 2025" tabindex="-1">15</span><span class="flatpickr-day" aria-label="April 16, 2025" tabindex="-1">16</span><span class="flatpickr-day" aria-label="April 17, 2025" tabindex="-1">17</span><span class="flatpickr-day" aria-label="April 18, 2025" tabindex="-1">18</span><span class="flatpickr-day" aria-label="April 19, 2025" tabindex="-1">19</span><span class="flatpickr-day" aria-label="April 20, 2025" tabindex="-1">20</span><span class="flatpickr-day" aria-label="April 21, 2025" tabindex="-1">21</span><span class="flatpickr-day" aria-label="April 22, 2025" tabindex="-1">22</span><span class="flatpickr-day" aria-label="April 23, 2025" tabindex="-1">23</span><span class="flatpickr-day selected" aria-label="April 24, 2025" tabindex="-1">24</span><span class="flatpickr-day" aria-label="April 25, 2025" tabindex="-1">25</span><span class="flatpickr-day" aria-label="April 26, 2025" tabindex="-1">26</span><span class="flatpickr-day" aria-label="April 27, 2025" tabindex="-1">27</span><span class="flatpickr-day" aria-label="April 28, 2025" tabindex="-1">28</span><span class="flatpickr-day" aria-label="April 29, 2025" tabindex="-1">29</span><span class="flatpickr-day" aria-label="April 30, 2025" tabindex="-1">30</span><span class="flatpickr-day nextMonthDay" aria-label="May 1, 2025" tabindex="-1">1</span><span class="flatpickr-day nextMonthDay" aria-label="May 2, 2025" tabindex="-1">2</span><span class="flatpickr-day nextMonthDay" aria-label="May 3, 2025" tabindex="-1">3</span><span class="flatpickr-day nextMonthDay today" aria-label="May 4, 2025" aria-current="date" tabindex="-1">4</span><span class="flatpickr-day nextMonthDay" aria-label="May 5, 2025" tabindex="-1">5</span><span class="flatpickr-day nextMonthDay" aria-label="May 6, 2025" tabindex="-1">6</span><span class="flatpickr-day nextMonthDay" aria-label="May 7, 2025" tabindex="-1">7</span><span class="flatpickr-day nextMonthDay" aria-label="May 8, 2025" tabindex="-1">8</span><span class="flatpickr-day nextMonthDay" aria-label="May 9, 2025" tabindex="-1">9</span><span class="flatpickr-day nextMonthDay" aria-label="May 10, 2025" tabindex="-1">10</span></div></div></div></div></div><div class="flatpickr-calendar animate" tabindex="-1"><div class="flatpickr-months"><span class="flatpickr-prev-month"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17"><g></g><path d="M5.207 8.471l7.146 7.147-0.707 0.707-7.853-7.854 7.854-7.853 0.707 0.707-7.147 7.146z"></path></svg></span><div class="flatpickr-month"><div class="flatpickr-current-month"><select class="flatpickr-monthDropdown-months" aria-label="Month" tabindex="-1"><option class="flatpickr-monthDropdown-month" value="0" tabindex="-1">January</option><option class="flatpickr-monthDropdown-month" value="1" tabindex="-1">February</option><option class="flatpickr-monthDropdown-month" value="2" tabindex="-1">March</option><option class="flatpickr-monthDropdown-month" value="3" tabindex="-1">April</option><option class="flatpickr-monthDropdown-month" value="4" tabindex="-1">May</option><option class="flatpickr-monthDropdown-month" value="5" tabindex="-1">June</option><option class="flatpickr-monthDropdown-month" value="6" tabindex="-1">July</option><option class="flatpickr-monthDropdown-month" value="7" tabindex="-1">August</option><option class="flatpickr-monthDropdown-month" value="8" tabindex="-1">September</option><option class="flatpickr-monthDropdown-month" value="9" tabindex="-1">October</option><option class="flatpickr-monthDropdown-month" value="10" tabindex="-1">November</option><option class="flatpickr-monthDropdown-month" value="11" tabindex="-1">December</option></select><div class="numInputWrapper"><input class="numInput cur-year" type="number" tabindex="-1" aria-label="Year"><span class="arrowUp"></span><span class="arrowDown"></span></div></div></div><span class="flatpickr-next-month"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17"><g></g><path d="M13.207 8.472l-7.854 7.854-0.707-0.707 7.146-7.146-7.146-7.148 0.707-0.707 7.854 7.854z"></path></svg></span></div><div class="flatpickr-innerContainer"><div class="flatpickr-rContainer"><div class="flatpickr-weekdays"><div class="flatpickr-weekdaycontainer">
+      <span class="flatpickr-weekday">
+        Sun</span><span class="flatpickr-weekday">Mon</span><span class="flatpickr-weekday">Tue</span><span class="flatpickr-weekday">Wed</span><span class="flatpickr-weekday">Thu</span><span class="flatpickr-weekday">Fri</span><span class="flatpickr-weekday">Sat
+      </span>
+      </div></div><div class="flatpickr-days" tabindex="-1"><div class="dayContainer"><span class="flatpickr-day prevMonthDay" aria-label="April 27, 2025" tabindex="-1">27</span><span class="flatpickr-day prevMonthDay" aria-label="April 28, 2025" tabindex="-1">28</span><span class="flatpickr-day prevMonthDay" aria-label="April 29, 2025" tabindex="-1">29</span><span class="flatpickr-day prevMonthDay" aria-label="April 30, 2025" tabindex="-1">30</span><span class="flatpickr-day" aria-label="May 1, 2025" tabindex="-1">1</span><span class="flatpickr-day" aria-label="May 2, 2025" tabindex="-1">2</span><span class="flatpickr-day" aria-label="May 3, 2025" tabindex="-1">3</span><span class="flatpickr-day today" aria-label="May 4, 2025" aria-current="date" tabindex="-1">4</span><span class="flatpickr-day" aria-label="May 5, 2025" tabindex="-1">5</span><span class="flatpickr-day" aria-label="May 6, 2025" tabindex="-1">6</span><span class="flatpickr-day" aria-label="May 7, 2025" tabindex="-1">7</span><span class="flatpickr-day" aria-label="May 8, 2025" tabindex="-1">8</span><span class="flatpickr-day" aria-label="May 9, 2025" tabindex="-1">9</span><span class="flatpickr-day" aria-label="May 10, 2025" tabindex="-1">10</span><span class="flatpickr-day" aria-label="May 11, 2025" tabindex="-1">11</span><span class="flatpickr-day" aria-label="May 12, 2025" tabindex="-1">12</span><span class="flatpickr-day" aria-label="May 13, 2025" tabindex="-1">13</span><span class="flatpickr-day" aria-label="May 14, 2025" tabindex="-1">14</span><span class="flatpickr-day" aria-label="May 15, 2025" tabindex="-1">15</span><span class="flatpickr-day" aria-label="May 16, 2025" tabindex="-1">16</span><span class="flatpickr-day" aria-label="May 17, 2025" tabindex="-1">17</span><span class="flatpickr-day" aria-label="May 18, 2025" tabindex="-1">18</span><span class="flatpickr-day" aria-label="May 19, 2025" tabindex="-1">19</span><span class="flatpickr-day" aria-label="May 20, 2025" tabindex="-1">20</span><span class="flatpickr-day" aria-label="May 21, 2025" tabindex="-1">21</span><span class="flatpickr-day" aria-label="May 22, 2025" tabindex="-1">22</span><span class="flatpickr-day" aria-label="May 23, 2025" tabindex="-1">23</span><span class="flatpickr-day" aria-label="May 24, 2025" tabindex="-1">24</span><span class="flatpickr-day" aria-label="May 25, 2025" tabindex="-1">25</span><span class="flatpickr-day" aria-label="May 26, 2025" tabindex="-1">26</span><span class="flatpickr-day" aria-label="May 27, 2025" tabindex="-1">27</span><span class="flatpickr-day" aria-label="May 28, 2025" tabindex="-1">28</span><span class="flatpickr-day" aria-label="May 29, 2025" tabindex="-1">29</span><span class="flatpickr-day" aria-label="May 30, 2025" tabindex="-1">30</span><span class="flatpickr-day" aria-label="May 31, 2025" tabindex="-1">31</span><span class="flatpickr-day nextMonthDay" aria-label="June 1, 2025" tabindex="-1">1</span><span class="flatpickr-day nextMonthDay" aria-label="June 2, 2025" tabindex="-1">2</span><span class="flatpickr-day nextMonthDay" aria-label="June 3, 2025" tabindex="-1">3</span><span class="flatpickr-day nextMonthDay" aria-label="June 4, 2025" tabindex="-1">4</span><span class="flatpickr-day nextMonthDay" aria-label="June 5, 2025" tabindex="-1">5</span><span class="flatpickr-day nextMonthDay" aria-label="June 6, 2025" tabindex="-1">6</span><span class="flatpickr-day nextMonthDay" aria-label="June 7, 2025" tabindex="-1">7</span></div></div></div></div></div></body></html>
