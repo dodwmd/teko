@@ -75,7 +75,7 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make('Documentation')
                 ->title('Resources')
                 ->icon('bs.book')
-                ->url('https://orchid.software/en/docs')
+                ->url('https://github.com/dodwmd/teko/wiki')
                 ->target('_blank'),
 
             Menu::make('GitHub Repository')

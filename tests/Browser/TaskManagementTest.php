@@ -25,11 +25,11 @@ class TaskManagementTest extends AdminTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new AdminLogin)
                 ->login()
-                ->pause(1000)
-                // Path assertion removed since it varies
-                ->clickLink('Tasks')
-                ->pause(1000)
-                ->assertSee('Tasks')
+                ->pause(1500)
+                ->waitForText('Dashboard', 10)
+                ->safeClick('a:contains("Tasks")')
+                ->pause(1500)
+                ->waitForText('Tasks', 10)
                 ->assertPresent('.table');
         });
     }
@@ -59,15 +59,20 @@ class TaskManagementTest extends AdminTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new AdminLogin)
                 ->login()
-                ->pause(1000)
-                ->clickLink('Tasks')
-                ->pause(1000)
+                ->pause(1500)
+                ->waitForText('Dashboard', 10)
+                ->safeClick('a:contains("Tasks")')
+                ->pause(1500)
+                ->waitForText('Tasks', 10)
                 ->assertSee('Pending Task')
                 ->assertSee('In Progress Task')
-                // Test filtering - might need to adjust selectors based on your actual UI
-                ->select('filter[status]', 'pending')
-                ->press('Apply')
-                ->pause(1000)
+                ->whenAvailable('select[name="filter[status]"]', function ($select) {
+                    $select->select('pending');
+                })
+                ->whenAvailable('button:contains("Apply")', function ($button) {
+                    $button->click();
+                })
+                ->pause(1500)
                 ->assertSee('Pending Task')
                 ->assertDontSee('In Progress Task');
         });
@@ -85,13 +90,16 @@ class TaskManagementTest extends AdminTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new AdminLogin)
                 ->login()
-                ->pause(1000)
-                ->clickLink('Tasks')
-                ->pause(1000)
-                // Click create button and check form
-                ->press('Add')
-                ->pause(1000)
-                ->assertSee('Create Task')
+                ->pause(1500)
+                ->waitForText('Dashboard', 10)
+                ->safeClick('a:contains("Tasks")')
+                ->pause(1500)
+                ->waitForText('Tasks', 10)
+                ->whenAvailable('button:contains("Add")', function ($button) {
+                    $button->click();
+                })
+                ->pause(1500)
+                ->waitForText('Create Task', 10)
                 ->assertPresent('input[name="title"]')
                 ->assertPresent('select[name="repository_id"]')
                 ->assertPresent('select[name="status"]');
@@ -115,13 +123,16 @@ class TaskManagementTest extends AdminTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new AdminLogin)
                 ->login()
-                ->pause(1000)
-                ->clickLink('Tasks')
-                ->pause(1000)
-                // Click on the task title to edit
-                ->clickLink('Test Task')
-                ->pause(1000)
-                ->assertSee('Edit Task')
+                ->pause(1500)
+                ->waitForText('Dashboard', 10)
+                ->safeClick('a:contains("Tasks")')
+                ->pause(1500)
+                ->waitForText('Tasks', 10)
+                ->whenAvailable('a:contains("Test Task")', function ($link) {
+                    $link->click();
+                })
+                ->pause(1500)
+                ->waitForText('Edit Task', 10)
                 ->assertInputValue('title', 'Test Task')
                 ->assertSelected('status', 'pending');
         });
@@ -144,16 +155,21 @@ class TaskManagementTest extends AdminTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit(new AdminLogin)
                 ->login()
-                ->pause(1000)
-                ->clickLink('Tasks')
-                ->pause(1000)
-                // Click on the task title to edit
-                ->clickLink('Test Task')
-                ->pause(1000)
-                // Click on the Comments tab
-                ->clickLink('Comments')
-                ->pause(1000)
-                ->assertSee('Comments')
+                ->pause(1500)
+                ->waitForText('Dashboard', 10)
+                ->safeClick('a:contains("Tasks")')
+                ->pause(1500)
+                ->waitForText('Tasks', 10)
+                ->whenAvailable('a:contains("Test Task")', function ($link) {
+                    $link->click();
+                })
+                ->pause(1500)
+                ->waitForText('Edit Task', 10)
+                ->whenAvailable('a:contains("Comments")', function ($link) {
+                    $link->click();
+                })
+                ->pause(1500)
+                ->waitForText('Comments', 10)
                 ->assertPresent('textarea[name="comment"]')
                 ->assertPresent('button[type="submit"]');
         });

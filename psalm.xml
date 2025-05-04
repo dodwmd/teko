@@ -22,15 +22,8 @@
 
     <!-- Laravel/Orchid specifics -->
     <issueHandlers>
-        <UndefinedClass errorLevel="suppress" />
-        <UndefinedMethod errorLevel="suppress" />
-        <PropertyNotSetInConstructor errorLevel="suppress" />
-        <MissingTemplateParam errorLevel="suppress" />
+        <MutableDependency errorLevel="suppress" />
+        <ClassMustBeFinal errorLevel="suppress" />
         <MissingOverrideAttribute errorLevel="suppress" />
-        <InvalidReturnType errorLevel="suppress" />
-        <MissingReturnType errorLevel="suppress" />
-        <InvalidNullableReturnType errorLevel="suppress" />
-        <PossiblyUnusedMethod errorLevel="suppress" />
-        <UnusedClass errorLevel="suppress" />
     </issueHandlers>
 </psalm>

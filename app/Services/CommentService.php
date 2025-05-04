@@ -62,6 +62,7 @@ class CommentService
     {
         // If the comment is on a task with external info, sync it
         if ($comment->commentable_type === Task::class) {
+            /** @var \App\Models\Task $task */
             $task = $comment->commentable;
 
             return ! empty($task->external_id) && ! empty($task->external_url) && ! empty($task->provider);
@@ -78,6 +79,7 @@ class CommentService
     protected function syncWithExternalSystem(Comment $comment, string $action): bool
     {
         try {
+            /** @var \App\Models\Task $task */
             $task = $comment->commentable;
 
             // Handle different providers
