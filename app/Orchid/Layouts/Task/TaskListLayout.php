@@ -109,7 +109,7 @@ class TaskListLayout extends Table
 
                             Button::make('Delete')
                                 ->icon('trash')
-                                ->method('remove', ['id' => $task->id])
+                                ->method('remove', ['task' => $task->id])
                                 ->confirm('Are you sure you want to delete this task?'),
                         ]);
                 }),

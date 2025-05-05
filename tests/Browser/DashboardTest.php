@@ -12,54 +12,28 @@ class DashboardTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    protected $user;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Create admin user
-        $adminRole = Role::create([
-            'slug' => 'admin',
-            'name' => 'Administrator',
-            'permissions' => [
-                'platform.index' => true,
-                'platform.systems' => true,
-                'platform.systems.roles' => true,
-                'platform.systems.users' => true,
-                'platform.agents.dashboard' => true,
-                'platform.agents.repository' => true,
-                'platform.agents.task' => true,
-                'platform.agents.monitoring' => true,
-            ],
-        ]);
-
-        $this->user = User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('password'),
-        ]);
-
-        $this->user->addRole($adminRole);
-    }
-
     /**
-     * Test that we can log in to the admin panel
+     * Test that the main dashboard screen is accessible to an admin.
      */
-    public function test_can_login_to_admin_panel(): void
+    public function test_dashboard_screen_can_be_rendered(): void
     {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/login')
-                ->screenshot('login-page');
+        // Create admin role if it doesn't exist
+        $adminRole = Role::firstOrCreate(['slug' => 'admin'], [
+            'name' => 'Administrator',
+            'permissions' => ['platform.index' => true, 'platform.systems.roles' => true, /* add other essential perms */],
+        ]);
 
-            // Now try to login
-            $browser->waitFor('input[name="email"]')
-                ->type('input[name="email"]', 'admin@example.com')
-                ->type('input[name="password"]', 'password')
-                ->screenshot('before-submit')
-                ->press('Login')
-                ->pause(1000)
-                ->screenshot('after-login');
+        // Create admin user and assign the role
+        $adminUser = User::factory()->create([
+            'email' => 'dashboard-test@teko.com',
+        ]);
+        $adminUser->addRole($adminRole);
+
+        $this->browse(function (Browser $browser) use ($adminUser) {
+            $browser->loginAs($adminUser)
+                    ->visit('/admin/main') // Adjust route if necessary
+                    ->assertSee('Dashboard') // Check for a common element
+                    ->assertPathIs('/admin/main'); // Verify the path
         });
     }
 }

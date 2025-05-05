@@ -90,6 +90,15 @@ class AlertSettingsScreen extends Screen
      */
     public function layout(): iterable
     {
+        // Get settings data from the query method result
+        $settings = $this->query()['settings'] ?? [];
+        // Determine visibility based on the email_notifications setting
+        $showEmailRecipients = $settings['email_notifications'] ?? false;
+        // Determine visibility for Slack webhook
+        $showSlackWebhook = $settings['slack_notifications'] ?? false;
+        // Determine visibility for Telegram fields
+        $showTelegramFields = $settings['telegram_notifications'] ?? false;
+
         return [
             Layout::block([
                 Layout::rows([
@@ -139,9 +148,7 @@ class AlertSettingsScreen extends Screen
                         ->title('Email Recipients')
                         ->placeholder('email1@example.com, email2@example.com')
                         ->help('Comma-separated list of email addresses')
-                        ->canSee(function ($settings) {
-                            return $settings['email_notifications'] ?? false;
-                        }),
+                        ->canSee($showEmailRecipients),
                 ]),
             ])
                 ->title('Email Notifications')
@@ -157,9 +164,7 @@ class AlertSettingsScreen extends Screen
                         ->title('Slack Webhook URL')
                         ->placeholder('https://hooks.slack.com/services/xxx/yyy/zzz')
                         ->help('Webhook URL for the Slack channel')
-                        ->canSee(function ($settings) {
-                            return $settings['slack_notifications'] ?? false;
-                        }),
+                        ->canSee($showSlackWebhook),
                 ]),
             ])
                 ->title('Slack Integration')
@@ -175,16 +180,15 @@ class AlertSettingsScreen extends Screen
                         Input::make('settings.telegram_bot_token')
                             ->title('Telegram Bot Token')
                             ->placeholder('1234567890:ABCDEF...')
-                            ->help('Your Telegram bot token'),
+                            ->help('Your Telegram bot token')
+                            ->canSee($showTelegramFields),
 
                         Input::make('settings.telegram_chat_id')
                             ->title('Telegram Chat ID')
                             ->placeholder('-1001234567890')
-                            ->help('The chat ID to send notifications to'),
-                    ])
-                        ->canSee(function ($settings) {
-                            return $settings['telegram_notifications'] ?? false;
-                        }),
+                            ->help('The chat ID to send notifications to')
+                            ->canSee($showTelegramFields),
+                    ]),
                 ]),
             ])
                 ->title('Telegram Integration')
@@ -195,7 +199,7 @@ class AlertSettingsScreen extends Screen
     /**
      * Save alert settings.
      */
-    public function save(Request $request)
+    public function save(Request $request): void
     {
         $settings = $request->input('settings');
 
@@ -239,7 +243,7 @@ class AlertSettingsScreen extends Screen
     /**
      * Send test notifications to configured channels.
      */
-    public function test()
+    public function test(): void
     {
         // Get settings
         $settings = $this->query()['settings'];

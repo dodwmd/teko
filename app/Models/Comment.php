@@ -24,12 +24,17 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property \Illuminate\Support\Carbon $updated_at
  * @property-read \App\Models\User $user
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $commentable
- * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder where($column, $operator = null, $value = null)
+ * @method static \Illuminate\Database\Eloquent\Model|static create(array $attributes = [])
+ * @method static \Illuminate\Database\Eloquent\Model|static findOrFail($id)
+ *
  * @uses \Illuminate\Database\Eloquent\Factories\HasFactory<\App\Models\Comment>
  */
 class Comment extends Model
 {
     use DocBlockHelpers;
+
     /** @use HasFactory<\App\Models\Comment> */
     use HasFactory;
 
@@ -112,7 +117,7 @@ class Comment extends Model
     /**
      * Get the task this comment belongs to, if applicable.
      */
-    public function task()
+    public function task(): ?\Illuminate\Database\Eloquent\Model
     {
         if ($this->commentable_type === Task::class) {
             return $this->commentable;

@@ -60,13 +60,13 @@ class PlatformProvider extends OrchidServiceProvider
                 ->route('platform.monitoring.alerts')
                 ->permission('platform.systems.settings'),
 
-            Menu::make(__('Users'))
+            Menu::make('Users')
                 ->icon('bs.people')
                 ->route('platform.systems.users')
                 ->permission('platform.systems.users')
-                ->title(__('Access Controls')),
+                ->title('Access Controls'),
 
-            Menu::make(__('Roles'))
+            Menu::make('Roles')
                 ->icon('bs.shield')
                 ->route('platform.systems.roles')
                 ->permission('platform.systems.roles')
@@ -90,32 +90,30 @@ class PlatformProvider extends OrchidServiceProvider
     }
 
     /**
-     * Register permissions for the application.
-     *
-     * @return ItemPermission[]
+     * Register the application's permissions.
      */
     public function permissions(): array
     {
         return [
-            ItemPermission::group(__('System'))
-                ->addPermission('platform.systems.roles', __('Roles'))
-                ->addPermission('platform.systems.users', __('Users')),
+            ItemPermission::group('System')
+                ->addPermission('platform.systems.roles', 'Roles')
+                ->addPermission('platform.systems.users', 'Users'),
 
-            ItemPermission::group(__('Agent Management'))
-                ->addPermission('platform.agent.list', __('View Agents'))
-                ->addPermission('platform.agent.edit', __('Edit Agents')),
+            ItemPermission::group('Agent Management')
+                ->addPermission('platform.agent.list', 'View Agents')
+                ->addPermission('platform.agent.edit', 'Edit Agents'),
 
-            ItemPermission::group(__('Task Management'))
-                ->addPermission('platform.task.list', __('View Tasks'))
-                ->addPermission('platform.task.edit', __('Edit Tasks')),
+            ItemPermission::group('Task Management')
+                ->addPermission('platform.task.list', 'View Tasks')
+                ->addPermission('platform.task.edit', 'Edit Tasks'),
 
-            ItemPermission::group(__('Repository Management'))
-                ->addPermission('platform.repository.list', __('View Repositories'))
-                ->addPermission('platform.repository.edit', __('Edit Repositories')),
+            ItemPermission::group('Repository Management')
+                ->addPermission('platform.repository.list', 'View Repositories')
+                ->addPermission('platform.repository.edit', 'Edit Repositories'),
 
-            ItemPermission::group(__('Monitoring'))
-                ->addPermission('platform.monitoring.errors', __('View Error Logs'))
-                ->addPermission('platform.monitoring.alerts', __('Configure Alerts')),
+            ItemPermission::group('Monitoring')
+                ->addPermission('platform.monitoring.errors', 'View Error Logs')
+                ->addPermission('platform.monitoring.alerts', 'Configure Alerts'),
         ];
     }
 }

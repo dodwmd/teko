@@ -114,7 +114,7 @@ return [
     */
     'models' => [
 
-        'role' => \App\Models\Role::class,
+        'role' => \Orchid\Platform\Models\Role::class,
 
         'permission' => \App\Models\Permission::class,
 

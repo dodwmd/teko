@@ -193,7 +193,7 @@ class ErrorDetailScreen extends Screen
     /**
      * Toggle the resolved status of the error.
      */
-    public function toggleResolved(Request $request)
+    public function toggleResolved(Request $request): \Illuminate\Http\RedirectResponse
     {
         $id = $request->input('id');
         $error = DB::table('logs')->where('id', $id)->first();

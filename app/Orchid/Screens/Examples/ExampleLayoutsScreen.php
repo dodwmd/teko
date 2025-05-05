@@ -48,11 +48,13 @@ class ExampleLayoutsScreen extends Screen
     /**
      * The screen's layout elements.
      *
-     * @return \Orchid\Screen\Layout[]
+     * @return (\Orchid\Screen\Layouts\Accordion|\Orchid\Screen\Layouts\Block|\Orchid\Screen\Layouts\Columns|\Orchid\Screen\Layouts\Tabs|\Orchid\Screen\Layouts\View|string)[]
      *
      * @throws \Throwable
+     *
+     * @psalm-return list{\Orchid\Screen\Layouts\Block, \Orchid\Screen\Layouts\Tabs, TabMenuExample::class, \Orchid\Screen\Layouts\View, \Orchid\Screen\Layouts\Columns, \Orchid\Screen\Layouts\Accordion}
      */
-    public function layout(): iterable
+    public function layout(): array
     {
         return [
 

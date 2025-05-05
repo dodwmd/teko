@@ -45,7 +45,7 @@ class CommentService
     /**
      * Delete a comment and remove from external system if needed.
      */
-    public function delete(Comment $comment): bool
+    public function delete(Comment $comment): ?bool
     {
         // Sync deletion with external system if applicable
         if ($this->shouldSync($comment)) {

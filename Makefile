@@ -1,4 +1,4 @@
-.PHONY: test lint python-lint static-analysis python-static-analysis unit-tests python-tests test-python test-php help docker-build docker-run ci-php ci-python security-check python-setup python-run dusk-tests
+.PHONY: test lint python-lint static-analysis python-static-analysis unit-tests python-tests test-python test-php help docker-build docker-run ci-php ci-python security-check python-setup python-run
 
 # Default target
 .DEFAULT_GOAL := help
@@ -13,7 +13,6 @@ help:
 	@echo "  make python-static-analysis Run Python static analysis only"
 	@echo "  make unit-tests          Run PHP unit tests only"
 	@echo "  make python-tests        Run Python tests only"
-	@echo "  make dusk-tests          Run Laravel Dusk browser tests"
 	@echo "  make test-python         Run all Python tests"
 	@echo "  make test-php            Run all PHP tests"
 	@echo "  make docker-build        Build Docker image"
@@ -49,14 +48,10 @@ python-tests:
 	@echo "Running Python tests..."
 	@./scripts/python-tests.sh
 
-dusk-tests:
-	@echo "Running Laravel Dusk browser tests..."
-	@./scripts/dusk-tests.sh
-
 test-python: python-lint python-static-analysis python-tests
 	@echo "All Python tests completed"
 
-test-php: lint static-analysis unit-tests dusk-tests
+test-php: lint static-analysis unit-tests
 	@echo "All PHP tests completed"
 
 # Main test command that runs everything

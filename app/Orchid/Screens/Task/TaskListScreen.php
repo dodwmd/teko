@@ -24,7 +24,7 @@ class TaskListScreen extends Screen
         return [
             'tasks' => Task::with('repository')
                 ->filters()
-                ->defaultSort('-created_at')
+                ->defaultSort('created_at', 'desc')
                 ->paginate(10),
         ];
     }
@@ -62,9 +62,11 @@ class TaskListScreen extends Screen
     /**
      * The screen's layout elements.
      *
-     * @return \Orchid\Screen\Layout[]
+     * @return string[]
+     *
+     * @psalm-return list{TaskFiltersLayout::class, TaskListLayout::class}
      */
-    public function layout(): iterable
+    public function layout(): array
     {
         return [
             TaskFiltersLayout::class,

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Optimized Test Runner for Teko
+# Focuses on running the optimized Dusk tests with proper setup and teardown
+
+# Set up trap for clean exits
+function cleanup {
+    echo "Cleaning up resources..."
+    # Kill any processes we started
+    if [ -f storage/app/dusk-server.pid ]; then
+        if kill -0 $(cat storage/app/dusk-server.pid) 2>/dev/null; then
+            kill $(cat storage/app/dusk-server.pid)
+        fi
+        rm storage/app/dusk-server.pid
+    fi
+    
+    if [ -f storage/app/chromedriver.pid ]; then
+        if kill -0 $(cat storage/app/chromedriver.pid) 2>/dev/null; then
+            kill $(cat storage/app/chromedriver.pid)
+        fi
+        rm storage/app/chromedriver.pid
+    fi
+}
+
+trap cleanup EXIT INT TERM
+
+# Set environment variables
+export DUSK_USE_SQLITE=true
+export DUSK_HEADLESS_DISABLED=false
+export SERVER_PORT=8000
+
+# Create storage directory
+mkdir -p storage/app
+
+# Choose which optimized tests to run
+TESTS=(
+    "Tests\\Browser\\AdminAccessTest"
+    "Tests\\Browser\\FeatureCompletionTest"
+    "Tests\\Browser\\TaskManagementTest"
+)
+
+# Prepare the test database
+echo "Setting up test database..."
+php artisan migrate:fresh --seed --env=testing
+
+# Run the tests
+echo "Running optimized Dusk tests..."
+php artisan dusk --filter="$(IFS='|'; echo "${TESTS[*]}")"
+
+echo "Tests completed"
+exit 0

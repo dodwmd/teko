@@ -22,12 +22,13 @@ use Orchid\Screen\AsSource;
  * @property-read \App\Models\Task|null $task
  * @property-read \App\Models\Repository|null $repository
  * @property-read \App\Models\Agent|null $agent
- * 
+ *
  * @uses \Illuminate\Database\Eloquent\Factories\HasFactory<\App\Models\Log>
  */
 class Log extends Model
 {
-    use AsSource, Filterable, DocBlockHelpers;
+    use AsSource, DocBlockHelpers, Filterable;
+
     /** @use HasFactory<\App\Models\Log> */
     use HasFactory;
 

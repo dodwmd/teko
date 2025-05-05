@@ -13,7 +13,6 @@ class SocialiteController extends Controller
     /**
      * Redirect the user to the provider authentication page.
      *
-     * @param string $provider
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function redirect(string $provider)
@@ -27,7 +26,6 @@ class SocialiteController extends Controller
     /**
      * Handle callback from provider.
      *
-     * @param string $provider
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function callback(string $provider)

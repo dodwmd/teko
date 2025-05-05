@@ -78,6 +78,7 @@ abstract class BaseRepository implements RepositoryInterface
             return false;
         }
 
-        return $model->delete();
+        // Ensure we always return a boolean value
+        return $model->delete() ? true : false;
     }
 }

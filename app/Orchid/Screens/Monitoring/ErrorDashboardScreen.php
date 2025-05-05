@@ -169,7 +169,7 @@ class ErrorDashboardScreen extends Screen
     /**
      * Filter error logs based on form submission
      */
-    public function filter(Request $request)
+    public function filter(Request $request): \Illuminate\Http\RedirectResponse
     {
         return redirect()->route('platform.monitoring.errors', [
             'message' => $request->get('message'),
@@ -180,7 +180,7 @@ class ErrorDashboardScreen extends Screen
     /**
      * Clear all error logs.
      */
-    public function clearAll()
+    public function clearAll(): \Illuminate\Http\RedirectResponse
     {
         DB::table('logs')->where(function ($query) {
             $query->where('level', 'error')

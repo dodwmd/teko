@@ -58,9 +58,11 @@ class AgentListScreen extends Screen
     /**
      * The screen's layout elements.
      *
-     * @return \Orchid\Screen\Layout[]
+     * @return string[]
+     *
+     * @psalm-return list{AgentListLayout::class}
      */
-    public function layout(): iterable
+    public function layout(): array
     {
         return [
             AgentListLayout::class,

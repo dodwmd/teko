@@ -59,6 +59,11 @@ class RepositoryListLayout extends Table
                         return '—';
                     }
 
+                    // Ensure languages is an array before iterating
+                    if (! is_array($repository->languages)) {
+                        return '<span class="text-danger">Invalid Data</span>';
+                    }
+
                     $output = '';
                     $count = 0;
 

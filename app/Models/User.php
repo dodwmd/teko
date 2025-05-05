@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\DocBlockHelpers;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Orchid\Filters\Types\Like;
 use Orchid\Filters\Types\Where;
 use Orchid\Filters\Types\WhereDateStartEnd;
@@ -19,14 +20,16 @@ use Orchid\Platform\Models\User as Authenticatable;
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
- * 
- * @method static \Illuminate\Database\Eloquent\Builder where($column, $operator = null, $value = null)
- * @method static bool exists()
+ *
+ * @method bool hasPermission(string $permission)
  */
 class User extends Authenticatable
 {
     use DocBlockHelpers;
-    
+
+    /** @use \Database\Factories\UserFactory */
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *

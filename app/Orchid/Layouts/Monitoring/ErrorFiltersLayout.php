@@ -14,6 +14,10 @@ class ErrorFiltersLayout extends Selection
 {
     /**
      * Filters to be displayed
+     *
+     * @return string[]
+     *
+     * @psalm-return list{MessageFilter::class, TypeFilter::class, LevelFilter::class, DateRangeFilter::class}
      */
     public function filters(): array
     {

@@ -59,9 +59,11 @@ class ExampleFieldsScreen extends Screen
     /**
      * The screen's layout elements.
      *
-     * @return \Orchid\Screen\Layout[]
+     * @return (\Orchid\Screen\Layouts\Columns|\Orchid\Screen\Layouts\Rows|string)[]
+     *
+     * @psalm-return list{ExampleElements::class, \Orchid\Screen\Layouts\Rows, \Orchid\Screen\Layouts\Columns}
      */
-    public function layout(): iterable
+    public function layout(): array
     {
         return [
 
@@ -298,7 +300,7 @@ class ExampleFieldsScreen extends Screen
         ];
     }
 
-    public function buttonClickProcessing()
+    public function buttonClickProcessing(): void
     {
         Alert::warning('Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.');
     }

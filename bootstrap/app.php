@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Register Orchid platform middleware alias
+        $middleware->alias([
+            'platform' => \Orchid\Platform\Http\Middleware\Access::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

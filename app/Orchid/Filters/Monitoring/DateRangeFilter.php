@@ -42,7 +42,10 @@ class DateRangeFilter extends Filter
         });
     }
 
-    public function display(): iterable
+    /**
+     * @psalm-return list{mixed}
+     */
+    public function display(): array
     {
         return [
             DateRange::make('created_at')

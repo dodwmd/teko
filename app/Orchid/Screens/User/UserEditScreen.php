@@ -29,6 +29,15 @@ class UserEditScreen extends Screen
     public $user;
 
     /**
+     * Constructor to initialize properties.
+     */
+    public function __construct()
+    {
+        // Property will be properly initialized in the query method
+        $this->user = null;
+    }
+
+    /**
      * Fetch data to be displayed on the screen.
      *
      * @return array
@@ -36,6 +45,7 @@ class UserEditScreen extends Screen
     public function query(User $user): iterable
     {
         $user->load(['roles']);
+        $this->user = $user;
 
         return [
             'user' => $user,
@@ -74,20 +84,20 @@ class UserEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make(__('Impersonate user'))
-                ->icon('bg.box-arrow-in-right')
-                ->confirm(__('You can revert to your original state by logging out.'))
+            Button::make('Impersonate user')
+                ->icon('login')
+                ->confirm('You can revert to your original state by logging out.')
                 ->method('loginAs')
-                ->canSee($this->user->exists && $this->user->id !== \request()->user()->id),
+                ->canSee($this->user && $this->user->exists && \request()->user() && $this->user->id !== \request()->user()->id),
 
-            Button::make(__('Remove'))
-                ->icon('bs.trash3')
-                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+            Button::make('Remove')
+                ->icon('trash')
+                ->confirm('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.')
                 ->method('remove')
-                ->canSee($this->user->exists),
+                ->canSee($this->user && $this->user->exists),
 
-            Button::make(__('Save'))
-                ->icon('bs.check-circle')
+            Button::make('Save')
+                ->icon('check')
                 ->method('save'),
         ];
     }
@@ -100,46 +110,46 @@ class UserEditScreen extends Screen
         return [
 
             Layout::block(UserEditLayout::class)
-                ->title(__('Profile Information'))
-                ->description(__('Update your account\'s profile information and email address.'))
+                ->title('Profile Information')
+                ->description('Update your account\'s profile information and email address.')
                 ->commands(
-                    Button::make(__('Save'))
-                        ->type(Color::BASIC)
-                        ->icon('bs.check-circle')
-                        ->canSee($this->user->exists)
+                    Button::make('Save')
+                        ->type(Color::DEFAULT())
+                        ->icon('check')
+                        ->canSee($this->user && $this->user->exists)
                         ->method('save')
                 ),
 
             Layout::block(UserPasswordLayout::class)
-                ->title(__('Password'))
-                ->description(__('Ensure your account is using a long, random password to stay secure.'))
+                ->title('Password')
+                ->description('Ensure your account is using a long, random password to stay secure.')
                 ->commands(
-                    Button::make(__('Save'))
-                        ->type(Color::BASIC)
-                        ->icon('bs.check-circle')
-                        ->canSee($this->user->exists)
+                    Button::make('Save')
+                        ->type(Color::DEFAULT())
+                        ->icon('check')
+                        ->canSee($this->user && $this->user->exists)
                         ->method('save')
                 ),
 
             Layout::block(UserRoleLayout::class)
-                ->title(__('Roles'))
-                ->description(__('A Role defines a set of tasks a user assigned the role is allowed to perform.'))
+                ->title('Roles')
+                ->description('A Role defines a set of tasks a user assigned the role is allowed to perform.')
                 ->commands(
-                    Button::make(__('Save'))
-                        ->type(Color::BASIC)
-                        ->icon('bs.check-circle')
-                        ->canSee($this->user->exists)
+                    Button::make('Save')
+                        ->type(Color::DEFAULT())
+                        ->icon('check')
+                        ->canSee($this->user && $this->user->exists)
                         ->method('save')
                 ),
 
             Layout::block(RolePermissionLayout::class)
-                ->title(__('Permissions'))
-                ->description(__('Allow the user to perform some actions that are not provided for by his roles'))
+                ->title('Permissions')
+                ->description('Allow the user to perform some actions that are not provided for by his roles')
                 ->commands(
-                    Button::make(__('Save'))
-                        ->type(Color::BASIC)
-                        ->icon('bs.check-circle')
-                        ->canSee($this->user->exists)
+                    Button::make('Save')
+                        ->type(Color::DEFAULT())
+                        ->icon('check')
+                        ->canSee($this->user && $this->user->exists)
                         ->method('save')
                 ),
 
@@ -174,7 +184,7 @@ class UserEditScreen extends Screen
 
         $user->replaceRoles($request->input('user.roles'));
 
-        Toast::info(__('User was saved.'));
+        Toast::info('User was saved.');
 
         return redirect()->route('platform.systems.users');
     }
@@ -188,7 +198,7 @@ class UserEditScreen extends Screen
     {
         $user->delete();
 
-        Toast::info(__('User was removed'));
+        Toast::info('User was removed');
 
         return redirect()->route('platform.systems.users');
     }
@@ -200,7 +210,7 @@ class UserEditScreen extends Screen
     {
         Impersonation::loginAs($user);
 
-        Toast::info(__('You are now impersonating this user'));
+        Toast::info('You are now impersonating this user');
 
         return redirect()->route(config('platform.index'));
     }

@@ -24,13 +24,23 @@ use Orchid\Screen\AsSource;
  * @property array|null $metadata
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon|null $started_at
+ * @property \Illuminate\Support\Carbon|null $completed_at
  * @property-read \App\Models\Repository|null $repository
- * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder filters()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Task whereIn($column, $values, $boolean = 'and', $not = false)
+ * @method static int count($columns = '*')
+ * @method static \Illuminate\Database\Eloquent\Model|static create(array $attributes = [])
+ * @method static \Illuminate\Database\Eloquent\Collection get($columns = ['*'])
+ * @method static \Illuminate\Pagination\LengthAwarePaginator paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
+ *
  * @uses \Illuminate\Database\Eloquent\Factories\HasFactory<\App\Models\Task>
  */
 class Task extends Model
 {
-    use AsSource, Filterable, DocBlockHelpers;
+    use AsSource, DocBlockHelpers, Filterable;
+
     /** @use HasFactory<\App\Models\Task> */
     use HasFactory;
 
@@ -64,6 +74,32 @@ class Task extends Model
         'metadata' => 'array',
         'started_at' => 'datetime',
         'completed_at' => 'datetime',
+    ];
+
+    /**
+     * Name of columns to which HTTP sorting can be applied
+     *
+     * @var array
+     */
+    protected $allowedSorts = [
+        'id',
+        'title',
+        'status',
+        'type',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Name of columns to which HTTP filtering can be applied
+     * Note: Relation filtering (like repository) needs custom filters.
+     *
+     * @var array
+     */
+    protected $allowedFilters = [
+        // 'title', // Removed to rely on TaskFiltersLayout
+        // 'status', // Removed to rely on TaskFiltersLayout
+        // 'type', // Removed to rely on TaskFiltersLayout
     ];
 
     /**

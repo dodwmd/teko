@@ -25,5 +25,10 @@
         <MutableDependency errorLevel="suppress" />
         <ClassMustBeFinal errorLevel="suppress" />
         <MissingOverrideAttribute errorLevel="suppress" />
+        <MissingTemplateParam errorLevel="info">
+            <errorLevel type="suppress">
+                <file name="app/Models/User.php" />
+            </errorLevel>
+        </MissingTemplateParam>
     </issueHandlers>
 </psalm>

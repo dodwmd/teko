@@ -23,12 +23,20 @@ use Orchid\Screen\AsSource;
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Task[] $tasks
- * 
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder filters()
+ * @method static \Illuminate\Database\Eloquent\Model|static findOrFail($id, $columns = ['*'])
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Repository whereIn($column, $values, $boolean = 'and', $not = false)
+ * @method static int count($columns = '*')
+ * @method static \Illuminate\Database\Eloquent\Model|static create(array $attributes = [])
+ * @method static \Illuminate\Pagination\LengthAwarePaginator paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
+ *
  * @uses \Illuminate\Database\Eloquent\Factories\HasFactory<\App\Models\Repository>
  */
 class Repository extends Model
 {
-    use AsSource, Filterable, DocBlockHelpers;
+    use AsSource, DocBlockHelpers, Filterable;
+
     /** @use HasFactory<\App\Models\Repository> */
     use HasFactory;
 

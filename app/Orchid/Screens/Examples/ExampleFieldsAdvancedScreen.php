@@ -71,11 +71,13 @@ class ExampleFieldsAdvancedScreen extends Screen
     /**
      * The screen's layout elements.
      *
-     * @return \Orchid\Screen\Layout[]
+     * @return (\Orchid\Screen\Layouts\Columns|\Orchid\Screen\Layouts\Rows|string)[]
      *
      * @throws \Throwable
+     *
+     * @psalm-return list{ExampleElements::class, \Orchid\Screen\Layouts\Rows, \Orchid\Screen\Layouts\Rows, \Orchid\Screen\Layouts\Rows, \Orchid\Screen\Layouts\Columns, \Orchid\Screen\Layouts\Rows, \Orchid\Screen\Layouts\Rows}
      */
-    public function layout(): iterable
+    public function layout(): array
     {
         return [
 

@@ -61,9 +61,11 @@ class RepositoryListScreen extends Screen
     /**
      * The screen's layout elements.
      *
-     * @return \Orchid\Screen\Layout[]
+     * @return string[]
+     *
+     * @psalm-return list{RepositoryFiltersLayout::class, RepositoryListLayout::class}
      */
-    public function layout(): iterable
+    public function layout(): array
     {
         return [
             RepositoryFiltersLayout::class,

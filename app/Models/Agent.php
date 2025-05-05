@@ -21,12 +21,13 @@ use Orchid\Screen\AsSource;
  * @property \Illuminate\Support\Carbon|null $last_active_at
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
- * 
+ *
  * @uses \Illuminate\Database\Eloquent\Factories\HasFactory<\App\Models\Agent>
  */
 class Agent extends Model
 {
-    use AsSource, Filterable, DocBlockHelpers;
+    use AsSource, DocBlockHelpers, Filterable;
+
     /** @use HasFactory<\App\Models\Agent> */
     use HasFactory;
 
