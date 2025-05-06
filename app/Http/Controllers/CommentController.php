@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Services\CommentService;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CommentController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * The comment service instance.
      *
@@ -79,10 +83,19 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        // Ensure the user owns this comment
-        if ($comment->user_id !== Auth::id()) {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
+        // Log the IDs for debugging
+        // Log::debug('Comment Update Auth Check:', [
+        //     'auth_id' => Auth::id(),
+        //     'comment_user_id' => $comment->user_id,
+        // ]);
+
+        // Ensure the user owns this comment -- Replaced with Policy Check
+        // if ($comment->user_id !== Auth::id()) {
+        //     return response()->json(['message' => 'Unauthorized'], 403);
+        // }
+
+        // Use the CommentPolicy to authorize the update action
+        $this->authorize('update', $comment);
 
         $validatedData = $request->validate([
             'content' => 'required|string',
@@ -92,10 +105,11 @@ class CommentController extends Controller
             'content' => $validatedData['content'],
         ]);
 
-        return response()->json([
-            'message' => 'Comment updated successfully',
-            'comment' => $comment,
-        ]);
+        $comment->refresh(); // Re-add refresh to ensure the model has the latest data
+
+        Log::debug('Comment before JSON response:', $comment->toArray());
+
+        return response()->json($comment->toArray()); // Return explicit array
     }
 
     /**
