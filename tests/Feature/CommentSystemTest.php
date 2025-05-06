@@ -5,52 +5,70 @@ namespace Tests\Feature;
 use App\Models\Comment;
 use App\Models\Task;
 use App\Models\User;
-use App\Services\CommentService;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase;
 use Laravel\Sanctum\Sanctum;
+use Orchid\Platform\Models\Role;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class CommentSystemTest extends TestCase
 {
+    use InteractsWithDatabase;
+
+    /**
+     * Helper method to get the admin user.
+     */
+    protected function getAdminUser(): User
+    {
+        $role = Role::where('slug', 'admin')->firstOrFail();
+        $adminUser = User::where('email', 'admin@teko.com')->firstOrFail();
+
+        // $adminUser->addRole($role); // Remove this: Role should already be attached by seeder
+        return $adminUser;
+    }
+
     /**
      * Test that comments can be created via the platform route.
      */
     #[Test]
     public function comments_can_be_created(): void
     {
-        $this->markTestIncomplete('Route platform.comment.store does not exist. Need to clarify comment creation mechanism.');
+        $adminUser = $this->getAdminUser();
 
-        /* Original test logic:
-        $user = User::factory()->create();
         // Create a task to comment on
         $task = Task::factory()->create();
 
         $commentData = [
-            'content' => 'This is a new comment.',
-            'commentable_id' => $task->id, // Use the created task's ID
-            'commentable_type' => Task::class,
-            // user_id will be automatically set based on the authenticated user
+            'content' => 'This is a test comment via API.',
+            'commentable_id' => $task->id,
+            'commentable_type' => Task::class, // Or get_class($task)
         ];
 
-        // Use the standard admin user for session authentication for platform routes
-        $adminUser = User::where('email', 'admin@teko.com')->firstOrFail();
+        // Simulate acting as the authenticated user via Sanctum
+        $response = $this->actingAs($adminUser, 'sanctum')
+            ->postJson(route('api.comment.store'), $commentData);
 
-        // Send POST request to create the comment using the platform route
-        $response = $this->actingAs($adminUser)
-            ->withHeaders(['Accept' => 'application/json']) // Request JSON response
-            ->postJson(route('platform.comment.store'), $commentData);
+        // Assert successful response
+        $response->assertStatus(200); // Controller returns 200 OK
+        $response->assertJsonStructure([
+            'message',
+            'comment' => [
+                'id',
+                'content',
+                'user_id',
+                'commentable_id',
+                'commentable_type',
+                // ... other expected fields
+            ],
+        ]);
 
-        // Assert the response is successful
-        $response->assertStatus(200); // Or 200 depending on your controller
-
-        // Assert the comment was created in the database
+        // Assert the comment exists in the database
         $this->assertDatabaseHas('comments', [
-            'commentable_id' => $task->id, // Assert using the created task's ID
+            'commentable_id' => $task->id,
             'commentable_type' => Task::class,
             'user_id' => $adminUser->id,
             'content' => $commentData['content'],
         ]);
-        */
     }
 
     /**
@@ -112,40 +130,5 @@ class CommentSystemTest extends TestCase
             'id' => $comment->id,
             'content' => $updatedData['content'],
         ]);
-    }
-
-    /**
-     * Test that comment sync functionality can be triggered.
-     * NOTE: Route name 'comments.sync' is hypothetical.
-     */
-    #[Test]
-    public function comment_sync_with_external_system(): void
-    {
-        // Create necessary models within the test
-        $user = User::factory()->create();
-        $task = Task::factory()->create(); // Create a task
-        $comment = Comment::factory()->create([
-            'commentable_id' => $task->id,
-            'commentable_type' => Task::class,
-            'user_id' => $user->id,
-        ]);
-
-        // Use Sanctum for API authentication if this were an API route
-        // Sanctum::actingAs(User::where('email', 'admin@teko.com')->firstOrFail());
-        // OR use standard auth if it's a platform route
-        $adminUser = User::where('email', 'admin@teko.com')->firstOrFail();
-
-        // Mock the CommentService to verify sync method call
-        $mockService = $this->mock(CommentService::class);
-        $mockService->shouldReceive('syncComment')->once()->with($comment);
-
-        // Send POST request to sync the comment - ROUTE NAME IS UNKNOWN
-        // $response = $this->actingAs($adminUser)->post(route('comments.sync', $comment->id)); // Comment out failing call
-
-        // Assert the response is successful (adjust as needed)
-        // $response->assertRedirect(); // Or assertOk() etc. - Comment out assertion
-
-        // Mark test as incomplete until sync route/trigger is identified
-        $this->markTestIncomplete('Sync route/trigger mechanism needs identification.');
     }
 }

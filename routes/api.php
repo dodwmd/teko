@@ -19,5 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Comment Update Route
-Route::middleware('auth:sanctum')->put('/comments/{comment}', [CommentController::class, 'update'])->name('api.comment.update');
+// Comment Routes (Protected by Sanctum)
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/comments', [CommentController::class, 'store'])->name('api.comment.store');
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('api.comment.update');
+});
