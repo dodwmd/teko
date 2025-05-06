@@ -6,7 +6,6 @@ use App\Models\Repository;
 use App\Models\Task;
 use App\Models\User;
 use App\Orchid\Screens\Task\TaskEditScreen;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Orchid\Platform\Models\Role;
 use Tests\TestCase;
@@ -14,28 +13,23 @@ use Tests\TestHelpers\OrchidScreenMock;
 
 class TaskManagementTest extends TestCase
 {
-    use RefreshDatabase, WithoutMiddleware;
+    use WithoutMiddleware;
 
     private function createAdminUser()
     {
+        // Find the pre-existing admin role created by seeders
+        $adminRole = Role::where('slug', 'admin')->firstOrFail();
+
+        // Create a new user using the factory
         $user = User::factory()->create();
 
-        // Create and assign admin role using Orchid's system
-        $adminRole = Role::create([
-            'name' => 'Admin',
-            'slug' => 'admin',
-            'permissions' => [
-                'platform.index' => true,
-                'platform.systems' => true,
-                'platform.tasks' => true,
-            ],
-        ]);
-
+        // Assign the found admin role to the new user
         $user->addRole($adminRole);
 
         return $user;
     }
 
+    #[\PHPUnit\Framework\Attributes\Test]
     public function test_task_list_screen_can_be_rendered()
     {
         $this->withoutExceptionHandling();
@@ -51,6 +45,7 @@ class TaskManagementTest extends TestCase
         $response->assertOk();
     }
 
+    #[\PHPUnit\Framework\Attributes\Test]
     public function test_task_can_be_created()
     {
         $this->withoutExceptionHandling();
@@ -86,6 +81,7 @@ class TaskManagementTest extends TestCase
         ]);
     }
 
+    #[\PHPUnit\Framework\Attributes\Test]
     public function test_task_status_can_be_updated()
     {
         $this->withoutExceptionHandling();

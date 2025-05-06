@@ -5,41 +5,32 @@ namespace Tests\Feature;
 use App\Models\Repository;
 use App\Models\User;
 use App\Orchid\Screens\Repository\RepositoryEditScreen;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Orchid\Platform\Models\Role;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use Tests\TestHelpers\OrchidScreenMock;
 
 class RepositoryManagementTest extends TestCase
 {
-    use RefreshDatabase, WithoutMiddleware;
+    use WithoutMiddleware;
 
     private function createAdminUser()
     {
-        $user = User::factory()->create();
+        $adminRole = Role::where('slug', 'admin')->firstOrFail();
 
-        // Create and assign admin role using Orchid's system
-        $adminRole = Role::create([
-            'name' => 'Admin',
-            'slug' => 'admin',
-            'permissions' => [
-                'platform.index' => true,
-                'platform.systems' => true,
-                'platform.repositories' => true,
-            ],
-        ]);
+        $user = User::factory()->create();
 
         $user->addRole($adminRole);
 
         return $user;
     }
 
+    #[Test]
     public function test_repository_list_screen_can_be_rendered()
     {
         $this->withoutExceptionHandling();
 
-        // Share errors with the view to avoid the undefined variable error
         view()->share('errors', new \Illuminate\Support\ViewErrorBag);
 
         $user = $this->createAdminUser();
@@ -50,6 +41,7 @@ class RepositoryManagementTest extends TestCase
         $response->assertOk();
     }
 
+    #[Test]
     public function test_repository_can_be_created()
     {
         $this->withoutExceptionHandling();
@@ -68,14 +60,12 @@ class RepositoryManagementTest extends TestCase
             ],
         ];
 
-        // Mock the Orchid Screen form submission
         $result = OrchidScreenMock::mockFormSubmission(
             RepositoryEditScreen::class,
             'save',
             $repositoryData
         );
 
-        // Check that a repository was created in the database
         $this->assertDatabaseHas('repositories', [
             'name' => 'Test Repository',
             'url' => 'https://github.com/test/repo',
@@ -83,6 +73,7 @@ class RepositoryManagementTest extends TestCase
         ]);
     }
 
+    #[Test]
     public function test_repository_can_be_updated()
     {
         $this->withoutExceptionHandling();
@@ -98,7 +89,6 @@ class RepositoryManagementTest extends TestCase
             'language' => 'php',
         ]);
 
-        // Mock the Orchid Screen form submission with all required fields
         $result = OrchidScreenMock::mockFormSubmission(
             RepositoryEditScreen::class,
             'save',
@@ -107,7 +97,7 @@ class RepositoryManagementTest extends TestCase
                 'repository' => [
                     'id' => $repository->id,
                     'name' => 'Updated Name',
-                    'url' => 'https://github.com/original/repo', // Include required fields
+                    'url' => 'https://github.com/original/repo',
                     'provider' => 'github',
                     'default_branch' => 'main',
                     'language' => 'php',
@@ -117,7 +107,6 @@ class RepositoryManagementTest extends TestCase
             ]
         );
 
-        // Check that the repository was updated in the database
         $this->assertDatabaseHas('repositories', [
             'id' => $repository->id,
             'name' => 'Updated Name',

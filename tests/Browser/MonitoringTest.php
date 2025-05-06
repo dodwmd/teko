@@ -44,9 +44,9 @@ class MonitoringTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->adminUser)
-                    ->visit(route('platform.monitoring.alerts')) // Correct route name
-                    ->assertSee('Alert Settings')
-                    ->assertPathIs('/admin/monitoring/alerts'); // Correct path
+                ->visit(route('platform.monitoring.alerts')) // Correct route name
+                ->assertSee('Alert Settings')
+                ->assertPathIs('/admin/monitoring/alerts'); // Correct path
         });
     }
 
@@ -57,9 +57,9 @@ class MonitoringTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->adminUser)
-                    ->visit(route('platform.monitoring.errors')) // From ErrorDetailScreen commandBar
-                    ->assertSee('Error Monitoring')
-                    ->assertPathIs('/admin/monitoring/errors'); // Assuming path
+                ->visit(route('platform.monitoring.errors')) // From ErrorDetailScreen commandBar
+                ->assertSee('Error Monitoring')
+                ->assertPathIs('/admin/monitoring/errors'); // Assuming path
         });
     }
 
@@ -79,9 +79,9 @@ class MonitoringTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($logId) {
             $browser->loginAs($this->adminUser)
-                    ->visit(route('platform.monitoring.error.view', ['id' => $logId]))
-                    ->assertSee('Error Details')
-                    ->assertPathIs("/admin/monitoring/errors/{$logId}");
+                ->visit(route('platform.monitoring.error.view', ['id' => $logId]))
+                ->assertSee('Error Details')
+                ->assertPathIs("/admin/monitoring/errors/{$logId}");
         });
     }
 

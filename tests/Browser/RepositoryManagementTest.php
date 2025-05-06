@@ -21,7 +21,7 @@ class RepositoryManagementTest extends DuskTestCase
         // Create admin role
         $adminRole = Role::firstOrCreate(['slug' => 'admin'], [
             'name' => 'Administrator',
-            'permissions' => ['platform.index' => true, 'platform.systems.roles' => true, 'platform.systems.users' => true, /* Add other necessary permissions */ ],
+            'permissions' => ['platform.index' => true, 'platform.systems.roles' => true, 'platform.systems.users' => true/* Add other necessary permissions */],
         ]);
 
         // Create admin user
@@ -38,9 +38,9 @@ class RepositoryManagementTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->adminUser)
-                    ->visit('/admin/repositories') // Adjust route if necessary
-                    ->assertSee('Repositories') // Check for the screen title
-                    ->assertPathIs('/admin/repositories'); // Verify the path
+                ->visit('/admin/repositories') // Adjust route if necessary
+                ->assertSee('Repositories') // Check for the screen title
+                ->assertPathIs('/admin/repositories'); // Verify the path
         });
     }
 

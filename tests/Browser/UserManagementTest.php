@@ -42,9 +42,9 @@ class UserManagementTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->adminUser)
-                    ->visit(route('platform.systems.users')) // Use route helper
-                    ->assertSee('User Management') // Check for the correct screen title
-                    ->assertPathIs('/admin/users'); // Verify the path
+                ->visit(route('platform.systems.users')) // Use route helper
+                ->assertSee('User Management') // Check for the correct screen title
+                ->assertPathIs('/admin/users'); // Verify the path
         });
     }
 

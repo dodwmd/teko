@@ -107,7 +107,8 @@ class CommentController extends Controller
 
         $comment->refresh(); // Re-add refresh to ensure the model has the latest data
 
-        Log::debug('Comment before JSON response:', $comment->toArray());
+        // Comment out the debug log
+        // Log::debug('Comment before JSON response:', $comment->toArray());
 
         return response()->json($comment->toArray()); // Return explicit array
     }

@@ -42,9 +42,9 @@ class RoleManagementTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->adminUser)
-                    ->visit(route('platform.systems.roles')) // Use route helper
-                    ->assertSee('Role Management') // Check for the screen title (Assuming this is the title)
-                    ->assertPathIs('/admin/roles'); // Verify the path
+                ->visit(route('platform.systems.roles')) // Use route helper
+                ->assertSee('Role Management') // Check for the screen title (Assuming this is the title)
+                ->assertPathIs('/admin/roles'); // Verify the path
         });
     }
 

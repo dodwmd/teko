@@ -21,7 +21,7 @@ class TaskManagementTest extends DuskTestCase
         // Create admin role
         $adminRole = Role::firstOrCreate(['slug' => 'admin'], [
             'name' => 'Administrator',
-            'permissions' => ['platform.index' => true, 'platform.systems.roles' => true, 'platform.systems.users' => true, /* Add other necessary permissions */ ],
+            'permissions' => ['platform.index' => true, 'platform.systems.roles' => true, 'platform.systems.users' => true/* Add other necessary permissions */],
         ]);
 
         // Create admin user
@@ -38,9 +38,9 @@ class TaskManagementTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->adminUser)
-                    ->visit('/admin/tasks') // Adjust route if necessary
-                    ->assertSee('Tasks') // Check for the screen title
-                    ->assertPathIs('/admin/tasks'); // Verify the path
+                ->visit('/admin/tasks') // Adjust route if necessary
+                ->assertSee('Tasks') // Check for the screen title
+                ->assertPathIs('/admin/tasks'); // Verify the path
         });
     }
 
