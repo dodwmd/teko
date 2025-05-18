@@ -3061,16 +3061,16 @@
         },
         {
             "name": "orchid/platform",
-            "version": "14.50.1",
+            "version": "14.52.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchidsoftware/platform.git",
-                "reference": "513485c1d8f454a2ce97d1f2fe2a5af164b6e875"
+                "reference": "5a4d4ab91946e62ca90045aacad1f408d860a443"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchidsoftware/platform/zipball/513485c1d8f454a2ce97d1f2fe2a5af164b6e875",
-                "reference": "513485c1d8f454a2ce97d1f2fe2a5af164b6e875",
+                "url": "https://api.github.com/repos/orchidsoftware/platform/zipball/5a4d4ab91946e62ca90045aacad1f408d860a443",
+                "reference": "5a4d4ab91946e62ca90045aacad1f408d860a443",
                 "shasum": ""
             },
             "require": {
@@ -3164,7 +3164,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2025-04-02T20:25:43+00:00"
+            "time": "2025-05-03T22:52:20+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -11457,12 +11457,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
