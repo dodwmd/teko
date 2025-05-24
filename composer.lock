@@ -11338,16 +11338,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "6.10.2",
+            "version": "6.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "a6c7e2358bbd62d81fca6c149f5c5823ecfcdd2a"
+                "reference": "4ed53b7ccebc09ef60ec4c9e464bf8a01bfd35b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/a6c7e2358bbd62d81fca6c149f5c5823ecfcdd2a",
-                "reference": "a6c7e2358bbd62d81fca6c149f5c5823ecfcdd2a",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/4ed53b7ccebc09ef60ec4c9e464bf8a01bfd35b0",
+                "reference": "4ed53b7ccebc09ef60ec4c9e464bf8a01bfd35b0",
                 "shasum": ""
             },
             "require": {
@@ -11452,17 +11452,17 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2025-05-03T16:37:00+00:00"
+            "time": "2025-05-12T11:30:26+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
