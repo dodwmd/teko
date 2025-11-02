@@ -8698,16 +8698,16 @@
         },
         {
             "name": "laravel/telescope",
-            "version": "v5.7.0",
+            "version": "v5.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/telescope.git",
-                "reference": "440908cb856cfbef9323244f7978ad4bf8cd2daa"
+                "reference": "cbdd61b025dddeccaffefc3b54d327c4e0a410b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/telescope/zipball/440908cb856cfbef9323244f7978ad4bf8cd2daa",
-                "reference": "440908cb856cfbef9323244f7978ad4bf8cd2daa",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/cbdd61b025dddeccaffefc3b54d327c4e0a410b6",
+                "reference": "cbdd61b025dddeccaffefc3b54d327c4e0a410b6",
                 "shasum": ""
             },
             "require": {
@@ -8761,9 +8761,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/telescope/issues",
-                "source": "https://github.com/laravel/telescope/tree/v5.7.0"
+                "source": "https://github.com/laravel/telescope/tree/v5.15.0"
             },
-            "time": "2025-03-27T17:25:52+00:00"
+            "time": "2025-10-23T15:19:35+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -11457,12 +11457,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
